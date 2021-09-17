@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LeetSolve</title>
+        <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+        <style>
+            @font-face {
+                font-family: "Cool Font";
+                src: url("./src/static/fonts/Courier\ Prime.ttf");
+            }
+            @font-face {
+                font-family: "Tetris Font";
+                src: url("./src/static/fonts/Tecate-7DXD.ttf");
+            }
+
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+                font-family: "Cool Font";
+                background-color: black;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+            #root {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            code {
+                font-family: "Cool Font";
+            }
+        </style>
+    </head>
+
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <body>
+        <div id="root"></div>
+        <script>
+            require("@babel/register");
+            require("./src/index.js");
+        </script>
+    </body>
+</html>

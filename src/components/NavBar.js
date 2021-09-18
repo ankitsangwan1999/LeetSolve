@@ -34,7 +34,9 @@ const NavBar = ({ message, timer = 0 }) => {
 							? "Go for it, Neo..."
 							: isTimeOut === true
 							? timer === 0
-								? `Trying again...`
+								? wasCookieSent
+									? `Try again, Neo...`
+									: `Trying again...`
 								: `Request Timed Out. Recovering in ${timer}`
 							: isCookieValid === false
 							? `Sent Invalid Cookie. Punishment ends in ${timer}`

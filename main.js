@@ -4,6 +4,7 @@ const path = require("path");
 const url = require("url");
 const axios = require("axios");
 import checkCookieValidity from "./src/api/CheckCookieValidity";
+import makeCookie from "./src/api/makeCookie";
 import { API_URL, TIME_OUT_LIMIT } from "./src/Constants";
 
 // for DEV purpose only
@@ -52,43 +53,31 @@ ipcMain.on("handle-form", async (e, cookie) => {
 	const cookieHeaderString = `LEETCODE_SESSION=${cookie};`;
 
 	try {
-		// await cookieJar.remove({
-		//     url: "https://leetsolve.com",
-		//     name: "MY_TASTY_COOKIE",
-		// });
-		// console.log("Cookie Removed");
-
 		const response = await checkCookieValidity(cookieHeaderString);
+		console.log(
+			"IDHAR:",
+			response.message.wasCookieSent,
+			typeof response.message.wasCookieSent
+		);
 		response.message.wasCookieSent = true;
 		// Store this Cookie
 		cookieJar
-			.set({
-				url: "https://leetsolve.com",
-				name: "MY_TASTY_COOKIE",
-				value: cookie,
-				domain: ".leetsolve.com",
-				expirationDate: (() => {
-					let currMilliSeconds = new Date();
-					currMilliSeconds += 84600;
-					return currMilliSeconds / 1000;
-				})(),
-				httpOnly: true,
-				secure: true,
-				strict: true,
-				sameSite: "strict",
-				session: false,
-			})
+			.set(makeCookie(cookie))
 			.then(() => {
 				console.log("Cookies Set.");
 				cookieJar
 					.get({
-						url: "https://leetsolve.com",
+						url: "https://leetsolve.matrix.com",
 						name: "MY_TASTY_COOKIE",
 					})
 					.then((cookies) => {
 						console.log("Showing All Cookies now:");
 						cookies.map((cookie) => {
-							console.log("here is it:", cookie.expirationDate);
+							console.log(
+								"here is it:",
+								cookie,
+								cookie.expirationDate
+							);
 						});
 						console.log(cookies.length);
 					})
@@ -98,7 +87,7 @@ ipcMain.on("handle-form", async (e, cookie) => {
 				mainWindow.webContents.send("user-data", response);
 			})
 			.catch((err) => {
-				console.log("ERROR: While Setting Cookie.");
+				console.log("ERROR: While Setting Cookie.", err);
 			});
 	} catch (response) {
 		response.message.wasCookieSent = true;
@@ -116,12 +105,7 @@ ipcMain.on("handle-form", async (e, cookie) => {
 ipcMain.on("user-data", async (e) => {
 	// TESTING BEGINS
 	// cookieJar
-	//     .set({
-	//         url: "https://leetsolve.com",
-	//         name: "MY_TASTY_COOKIE",
-	//         value: <ENTER_YOUR_COOKIE_HERE>,
-	//         domain: "leetsolve.com",
-	//     })
+	//     .set(makeCookie(<ENTER_YOUR_COOKIE_HERE>))
 	//     .then(() => {
 	//         console.log("Cookies Set.");
 	//     })
@@ -129,14 +113,25 @@ ipcMain.on("user-data", async (e) => {
 	//         console.log("Can't Set");
 	//     });
 
+	// To remove a cookie: Will be used in logout, inside a different even i.e. user-logout
+	// try {
+	// 	await cookieJar.remove(
+	// 		"https://leetsolve.matrix.com",
+	// 		"MY_TASTY_COOKIE"
+	// 	);
+	// 	console.log("Cookie Removed");
+	// } catch (e) {
+	// 	console.log("Problem Removing the cookie", e);
+	// }
+
 	// TESTING ENDS
 
 	cookieJar
-		.get({ url: "https://leetsolve.com", name: "MY_TASTY_COOKIE" })
+		.get({ url: "https://leetsolve.matrix.com", name: "MY_TASTY_COOKIE" })
 		.then(async (cookies) => {
 			if (cookies.length !== 0) {
 				const cookieObj = cookies[0];
-				console.log("Yea... Your Cookie is Here:");
+				console.log("Yea... Your Cookie is Here.");
 				const cookieHeaderString = `LEETCODE_SESSION=${cookieObj.value};`;
 				try {
 					const response = await checkCookieValidity(
@@ -144,10 +139,18 @@ ipcMain.on("user-data", async (e) => {
 					);
 					mainWindow.webContents.send("user-data", response);
 				} catch (response) {
-					console.log(
-						"That Sounds Weird but I will allow it.",
-						response
-					);
+					if (response.message.isTimeOut) {
+						console.log(
+							"We ran out of time while fetching data for your EXISTING cookie",
+							response
+						);
+					} else {
+						console.log(
+							"That Sounds Weird but I will allow it.",
+							response
+						);
+					}
+
 					mainWindow.webContents.send("user-data", response);
 				}
 			} else {

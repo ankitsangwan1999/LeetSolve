@@ -35,4 +35,3 @@ Step 3:
 
 ## Are there any tips/guidelines for contributors under [ContriHUB-21](http://contrihub21.herokuapp.com/)?
 Check [CONTRIBUTING.md](CONTRIBUTING.md)
-

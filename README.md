@@ -1,5 +1,7 @@
 > There's a difference between knowing the path and walking the path - *Morpheus*
 
+![Visitor Count](https://profile-counter.glitch.me/ankitsangwan1999/count.svg)
+
 ## What am I looking at?
 **LeetSolve** - A cross-platform desktop application showing algorithm problems attempted by you on Leetcode.
 

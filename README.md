@@ -16,7 +16,7 @@ Sometimes back **Leetcode** did not show all the **attempted** problems(AC/Non-A
 3.     npm start
    > This will run the script corresponding to 'start' in package.json
 
-## How to use this?
+## How to use it?
 Step-1:
 > Login to your account on leetcode.com in any browser of your choice.
 
@@ -36,7 +36,7 @@ Step-3:
 4. **Node.js** (*Beginner*).
 
 ## Are there any tips/guidelines for contributors under [ContriHUB-21](http://contrihub21.herokuapp.com/)?
-Check [CONTRIBUTING.md](CONTRIBUTING.md)
+Yes. Check [CONTRIBUTING.md](CONTRIBUTING.md)
 
-## Where to add contributors name for [ContriHUB-21](http://contrihub21.herokuapp.com/)?
-Check [CONTRIBUTORS.md](CONTRIBUTORS.md)
+## Where to add the contributors name for [ContriHUB-21](http://contrihub21.herokuapp.com/)?
+Inside [CONTRIBUTORS.md](CONTRIBUTORS.md) file.

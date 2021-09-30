@@ -20,11 +20,11 @@ Sometimes back **Leetcode** did not show all the **attempted** problems(AC/Non-A
 Step-1:
 > Login to your account on leetcode.com in any browser of your choice.
 
-Step 2:
+Step-2:
 > After Login, Check the Cookies set by **leetcode.com** for you.
 For e.g. in Chrome/Firefox you can go to **Dev Tool** -> **Application** Tab -> **Cookies** -> **https://leetcode.com**.
 
-Step 3:
+Step-3:
 > Copy the value corresponding to '**LEETCODE_SESSION**' and paste it inside the form shown in LeetSolve App.
 
 **Note:** This cookie value will be valid until you do not logout from https://leetcode.com. Once logged out. Follow the above 3 steps again.
@@ -37,3 +37,6 @@ Step 3:
 
 ## Are there any tips/guidelines for contributors under [ContriHUB-21](http://contrihub21.herokuapp.com/)?
 Check [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## Where to add contributors name for [ContriHUB-21](http://contrihub21.herokuapp.com/)?
+Check [CONTRIBUTORS.md](CONTRIBUTORS.md)

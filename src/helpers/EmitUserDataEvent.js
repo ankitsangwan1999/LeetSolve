@@ -16,7 +16,7 @@ const emitUserDataEvent = (setResponse) => {
             };
         });
 
-        // As we have got the response remove all listeners to this event
+        // Removing all listeners to this event after getting the response.
         ipcRenderer.removeAllListeners();
     });
 };

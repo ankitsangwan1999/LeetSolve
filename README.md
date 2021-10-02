@@ -42,4 +42,4 @@ Check [CONTRIBUTING.md](CONTRIBUTING.md)
 Check [CONTRIBUTORS.md](CONTRIBUTORS.md)
 
 ## Mentors
-* [Ankit Sangwan]()
+* [Ankit Sangwan](https://github.com/ankitsangwan1999)

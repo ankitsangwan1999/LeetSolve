@@ -9,7 +9,7 @@
 Sometimes back **Leetcode** did not show all the **attempted** problems(AC/Non-AC) by the user at one place. Particularly, **Non-AC** problems are important for students preparing for **interviews** as they want to solve them eventually. Categorizing all such problems based on their **Difficulty Level** and **Acceptance Rate** becomes helpful. 
 
 
-## How to run it locally?
+## How to run locally?
 1. > ***Clone this repo to your local machine and cd into the LeetSolve directory.***
 2.     npm i
    > This will download all the required dependencies for the application to run on your local machine.
@@ -38,5 +38,9 @@ Step-3:
 ## Are there any tips/guidelines for contributors under [ContriHUB-21](http://contrihub21.herokuapp.com/)?
 Yes. Check [CONTRIBUTING.md](CONTRIBUTING.md)
 
-## Where to add the contributors name for [ContriHUB-21](http://contrihub21.herokuapp.com/)?
-Inside [CONTRIBUTORS.md](CONTRIBUTORS.md) file.
+## Where to add contributors name for [ContriHUB-21](http://contrihub21.herokuapp.com/)?
+Check [CONTRIBUTORS.md](CONTRIBUTORS.md)
+
+## Mentors
+* [Ankit Sangwan](https://github.com/ankitsangwan1999)
+

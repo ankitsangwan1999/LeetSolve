@@ -26,10 +26,10 @@ const QuestionsTable = ({ data }) => {
 				</colgroup>
 				<THead>
 					<Tr>
-						<Th style={{ color: "00000" }}>ID</Th>
-						<Th style={{ color: "00f2ff" }}>Title</Th>
+						<Th>ID</Th>
+						<Th>Title</Th>
 						<Th style={{ color: "pink" }}>Level</Th>
-						<Th style={{ color: "00fff5" }}>Status</Th>
+						<Th>Status</Th>
 					</Tr>
 				</THead>
 			</Table>

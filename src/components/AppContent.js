@@ -9,10 +9,10 @@ import TableContent from "./TableContent";
 
 const AppContent = ({ response, setResponse }) => {
 
-	const [ activeCategory, setActiveCategory ] = useState('All Questions');
+	const [ activeCategory, setActiveCategory ] = useState('All Questions');		//name of the currently active category
 
 	const handleCategoryClick = (category) => {
-		setActiveCategory(category);
+		setActiveCategory(category);												//change the currently active category
 	}
 
 	if (response.timer !== 0) {
@@ -79,7 +79,7 @@ const AppContent = ({ response, setResponse }) => {
 					return (
 						<>
 							<CategoryNavBar
-								categories={["All Questions", "Attempted" ]} 
+								categories={["All Questions", "Attempted" ]} // list of categories to be displayed at the top like - All questions, Attempted and so on.
 								data={response.data} 
 								handleCategoryClick={handleCategoryClick} 
 								activeCategory={activeCategory}

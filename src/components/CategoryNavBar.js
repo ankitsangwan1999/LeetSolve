@@ -5,14 +5,15 @@ import PropTypes from "prop-types";
 
 const CategoryNavBar = ({ categories = [], handleCategoryClick, activeCategory }) => {
 
-	const categoryClickHandle = (category) => {
-		handleCategoryClick(category);
-		// alert("Fix this issue to get Points.");
+	const categoryClickHandle = (category) => {			//called when a category button is clicked
+		handleCategoryClick(category);					//callback function in AppContent to set the active category
 	};
 
 	return (
 		<CategoryNavBarSection>
-			{categories.map((category) => {
+			
+			{	// display categories at the top like - All questions, Attempted and so on.
+			categories.map((category) => {
 				return (
 					<CategoryButton
 						key={category}
@@ -31,6 +32,8 @@ const CategoryNavBar = ({ categories = [], handleCategoryClick, activeCategory }
 
 CategoryNavBar.propTypes = {
 	categories: PropTypes.arrayOf(PropTypes.string),
+	handleCategoryClick: PropTypes.func,
+	activeCategory: PropTypes.string
 };
 
 export default CategoryNavBar;

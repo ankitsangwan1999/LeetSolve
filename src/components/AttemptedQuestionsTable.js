@@ -38,9 +38,12 @@ const AttemptedQuestionsTable = ({ data }) => {
 				</colgroup>
 				<TBody>
 					{data["stat_status_pairs"].map((que, index) => {
-						if(!(que["status"] === "ac" || que["status"] === "notac")) {
+
+						if(!(que["status"] === "ac" || que["status"] === "notac")) {		//  return null if not attempted i.e. neither 'ac' nor 'notac'
 							return null;
 						}
+						
+						// if attempted then return as a row for the table
 						return (
 							<Tr key={index}>
 								<Td>

@@ -29,7 +29,7 @@ const NavBar = ({ message, timer = 0 }) => {
 				<SliderText>
 					<span style={{ color: "#39ff14" }}>
 						{isLoading === true
-							? "Fetching Koshans..."
+							? "Fetching Questions..."
 							: doesCookieExist === false
 							? "Go for it, Neo..."
 							: isTimeOut === true

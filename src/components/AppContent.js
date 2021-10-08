@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import emitUserDataEvent from "../helpers/EmitUserDataEvent";
 import propTypes from "prop-types";
 import GifComponent from "./GifComponent";
 import PreLoader from "./PreLoader";
 import CookieForm from "./CookieForm";
 import CategoryNavBar from "./CategoryNavBar";
-import QuestionsTable from "./QuestionsTable";
+import TableContent from "./TableContent";
 
 const AppContent = ({ response, setResponse }) => {
+
+	const [ activeCategory, setActiveCategory ] = useState('All Questions');		//name of the currently active category
+
+	const handleCategoryClick = (category) => {
+		setActiveCategory(category);												//change the currently active category
+	}
+
 	if (response.timer !== 0) {
 		// Timer is Still Running
 		if (response.message.isTimeOut) {
@@ -71,8 +78,13 @@ const AppContent = ({ response, setResponse }) => {
 				if (response.message.isCookieValid) {
 					return (
 						<>
-							<CategoryNavBar categories={["Attempted"]} />
-							<QuestionsTable data={response.data} />
+							<CategoryNavBar
+								categories={["All Questions", "Attempted" ]} // list of categories to be displayed at the top like - All questions, Attempted and so on.
+								data={response.data} 
+								handleCategoryClick={handleCategoryClick} 
+								activeCategory={activeCategory}
+							/>
+							<TableContent data={response.data} category={activeCategory}/>
 						</>
 					);
 				} else {

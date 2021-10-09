@@ -1,5 +1,5 @@
 import "regenerator-runtime/runtime"; // To be able to use async-await syntax
-const { app, BrowserWindow, ipcMain, shell, session } = require("electron");
+const { app, BrowserWindow, ipcMain, shell, session ,screen} = require("electron");
 const path = require("path");
 const url = require("url");
 const axios = require("axios");
@@ -17,15 +17,19 @@ const createWindow = () => {
 	mainWindow = new BrowserWindow({
 		width: 1000,
 		height: 800,
+		minWidth:300,
+		minHeight:400,
 		icon: __dirname + "/src/static/images/icon.png",
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
 		},
+		
+		
 		autoHideMenuBar: true,
 	});
 	cookieJar = session.defaultSession.cookies;
-
+	
 	mainWindow.loadURL(
 		url.format({
 			pathname: path.join(__dirname, "/index.html"),

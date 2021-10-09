@@ -79,7 +79,7 @@ const AppContent = ({ response, setResponse }) => {
 					return (
 						<>
 							<CategoryNavBar
-								categories={["All Questions", "Attempted" ]} // list of categories to be displayed at the top like - All questions, Attempted and so on.
+								categories={["All Questions", "Attempted", "Accepted", "Not Accepted"]}  // list of categories to be displayed at the top like - All questions, Attempted and so on.
 								data={response.data} 
 								handleCategoryClick={handleCategoryClick} 
 								activeCategory={activeCategory}
@@ -107,8 +107,6 @@ const AppContent = ({ response, setResponse }) => {
 	}
 };
 
-export default AppContent;
-
 AppContent.propTypes = {
 	response: propTypes.shape({
 		message: propTypes.shape({
@@ -124,3 +122,6 @@ AppContent.propTypes = {
 	}),
 	setResponse: propTypes.func,
 };
+
+
+export default AppContent;

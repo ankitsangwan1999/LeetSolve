@@ -17,8 +17,8 @@ const createWindow = () => {
 	mainWindow = new BrowserWindow({
 		width: 1000,
 		height: 800,
-		minWidth:300,
-		minHeight:400,
+		minWidth:600,
+		minHeight:600,
 		icon: __dirname + "/src/static/images/icon.png",
 		webPreferences: {
 			nodeIntegration: true,

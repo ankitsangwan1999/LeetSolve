@@ -21,13 +21,15 @@ const NavBar = ({ message, timer = 0 }) => {
 	} = message;
 
 	function refreshPage(){
+		// the reload false reloads the current page from the cache 
+		// the reload true reloads the page from the server
 		window.location.reload(false);
 	}
 
 	return (
 		<Section>
 			<Div type="logo">
-				<span id="Logo" onClick={refreshPage}>LeetSolve</span>
+				<span id="Logo" style={{cursor: "pointer"}}onClick={refreshPage}>LeetSolve</span>
 			</Div>
 			<Slider>
 				<SliderText>

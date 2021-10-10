@@ -31,24 +31,24 @@ const Header = ({ message, timer = 0 }) => {
 						{isLoading === true
 							? "Fetching Questions..."
 							: doesCookieExist === false
-								? "Go for it, Neo..."
-								: isTimeOut === true
-									? timer === 0
-										? wasCookieSent
-											? `Try again, Neo...`
-											: `Trying again...`
-										: `Request Timed Out. Recovering in ${timer}`
-									: isCookieValid === false
-										? `Sent Invalid Cookie. Punishment ends in ${timer}`
-										: timer === 0
-											? "Dodge This."
-											: `Time to Fly... in ${timer}`}
+							? "Go for it, Neo..."
+							: isTimeOut === true
+							? timer === 0
+								? wasCookieSent
+									? `Try again, Neo...`
+									: `Trying again...`
+								: `Request Timed Out. Recovering in ${timer}`
+							: isCookieValid === false
+							? `Sent Invalid Cookie. Punishment ends in ${timer}`
+							: timer === 0
+							? "Dodge This."
+							: `Time to Fly... in ${timer}`}
 					</span>
 				</SliderText>
 				<Line />
 				{isLoading === false &&
-					timer == 0 &&
-					(isTimeOut == true ? wasCookieSent === true : true) ? (
+				timer == 0 &&
+				(isTimeOut == true ? wasCookieSent === true : true) ? (
 					<SublineFull />
 				) : (
 					<>

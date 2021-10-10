@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import emitUserDataEvent from "../helpers/EmitUserDataEvent";
-import NavBar from "./NavBar";
+import Header from "./Header";
 import PreLoader from "./PreLoader";
 import { backgroundImageProperty } from "../styles/constants";
 import AppContent from "./AppContent";
@@ -54,7 +54,7 @@ const App = () => {
 	if (response.message.isLoading === false) {
 		return (
 			<>
-				<NavBar message={response.message} timer={response.timer} />
+				<Header message={response.message} timer={response.timer} />
 				<AppContent response={response} setResponse={setResponse} />
 				<div
 					style={{
@@ -74,7 +74,7 @@ const App = () => {
 	} else {
 		return (
 			<>
-				<NavBar message={response.message} />
+				<Header message={response.message} />
 				<PreLoader />
 				<div
 					style={{

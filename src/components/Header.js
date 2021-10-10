@@ -1,5 +1,5 @@
 import React from "react";
-import { Div, Section } from "../styles/navbar";
+import { Div, Section } from "../styles/header";
 import {
 	Slider,
 	SliderText,
@@ -10,7 +10,7 @@ import {
 } from "../styles/slider";
 import propTypes from "prop-types";
 
-const NavBar = ({ message, timer = 0 }) => {
+const Header = ({ message, timer = 0 }) => {
 	const {
 		username,
 		isCookieValid,
@@ -31,24 +31,24 @@ const NavBar = ({ message, timer = 0 }) => {
 						{isLoading === true
 							? "Fetching Questions..."
 							: doesCookieExist === false
-							? "Go for it, Neo..."
-							: isTimeOut === true
-							? timer === 0
-								? wasCookieSent
-									? `Try again, Neo...`
-									: `Trying again...`
-								: `Request Timed Out. Recovering in ${timer}`
-							: isCookieValid === false
-							? `Sent Invalid Cookie. Punishment ends in ${timer}`
-							: timer === 0
-							? "Dodge This."
-							: `Time to Fly... in ${timer}`}
+								? "Go for it, Neo..."
+								: isTimeOut === true
+									? timer === 0
+										? wasCookieSent
+											? `Try again, Neo...`
+											: `Trying again...`
+										: `Request Timed Out. Recovering in ${timer}`
+									: isCookieValid === false
+										? `Sent Invalid Cookie. Punishment ends in ${timer}`
+										: timer === 0
+											? "Dodge This."
+											: `Time to Fly... in ${timer}`}
 					</span>
 				</SliderText>
 				<Line />
 				{isLoading === false &&
-				timer == 0 &&
-				(isTimeOut == true ? wasCookieSent === true : true) ? (
+					timer == 0 &&
+					(isTimeOut == true ? wasCookieSent === true : true) ? (
 					<SublineFull />
 				) : (
 					<>
@@ -68,7 +68,7 @@ const NavBar = ({ message, timer = 0 }) => {
 	);
 };
 
-NavBar.propTypes = {
+Header.propTypes = {
 	message: propTypes.shape({
 		username: propTypes.string.isRequired,
 		isLoading: propTypes.bool.isRequired,
@@ -80,4 +80,4 @@ NavBar.propTypes = {
 	timer: propTypes.number,
 };
 
-export default NavBar;
+export default Header;

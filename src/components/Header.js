@@ -1,5 +1,5 @@
 import React from "react";
-import { Div, Section } from "../styles/navbar";
+import { Div, Section } from "../styles/header";
 import {
 	Slider,
 	SliderText,
@@ -10,7 +10,7 @@ import {
 } from "../styles/slider";
 import propTypes from "prop-types";
 
-const NavBar = ({ message, timer = 0 }) => {
+const Header = ({ message, timer = 0 }) => {
 	const {
 		username,
 		isCookieValid,
@@ -68,7 +68,7 @@ const NavBar = ({ message, timer = 0 }) => {
 	);
 };
 
-NavBar.propTypes = {
+Header.propTypes = {
 	message: propTypes.shape({
 		username: propTypes.string.isRequired,
 		isLoading: propTypes.bool.isRequired,
@@ -80,4 +80,4 @@ NavBar.propTypes = {
 	timer: propTypes.number,
 };
 
-export default NavBar;
+export default Header;

@@ -20,10 +20,14 @@ const NavBar = ({ message, timer = 0 }) => {
 		wasCookieSent,
 	} = message;
 
+	function refreshPage(){
+		window.location.reload(false);
+	}
+
 	return (
 		<Section>
 			<Div type="logo">
-				<span id="Logo">LeetSolve</span>
+				<span id="Logo" onClick={refreshPage}>LeetSolve</span>
 			</Div>
 			<Slider>
 				<SliderText>

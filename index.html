@@ -34,6 +34,31 @@
             code {
                 font-family: "Cool Font";
             }
+            /* below styles is for global scrollbars */
+            /* width */
+            ::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            /* Track */
+            ::-webkit-scrollbar-track {
+                outline: 1px solid green;
+            }
+
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: #39ff14;
+                border-radius: 25px;
+                min-height: 40px;
+            }
+            ::-webkit-scrollbar-corner {
+                background-color: transparent;
+            }
+
+            /*Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #33cd31;
+            }
         </style>
     </head>
 

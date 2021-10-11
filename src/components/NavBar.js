@@ -1,4 +1,5 @@
 import React from "react";
+import '../styles/style.css';
 import { Div, Section } from "../styles/navbar";
 import {
 	Slider,
@@ -29,7 +30,7 @@ const NavBar = ({ message, timer = 0 }) => {
 	return (
 		<Section>
 			<Div type="logo">
-				<span id="Logo" style={{cursor: "pointer"}}onClick={refreshPage}>LeetSolve</span>
+				<span id="Logo" className="titlelogo" onClick={refreshPage}>LeetSolve</span>
 			</Div>
 			<Slider>
 				<SliderText>

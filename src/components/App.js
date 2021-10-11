@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import emitUserDataEvent from "../helpers/EmitUserDataEvent";
+import emitUserDataEvent from "../Constants.js";
 import NavBar from "./NavBar";
 import PreLoader from "./PreLoader";
 import { backgroundImageProperty } from "../styles/constants";

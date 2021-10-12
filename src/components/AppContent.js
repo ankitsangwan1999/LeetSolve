@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import emitUserDataEvent from "../Constants.js";
+import emitUserDataEvent from "../helpers/EmitUserDataEvent";
 import propTypes from "prop-types";
 import GifComponent from "./GifComponent";
 import PreLoader from "./PreLoader";

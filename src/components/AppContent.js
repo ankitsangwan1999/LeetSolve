@@ -7,12 +7,15 @@ import CookieForm from "./CookieForm";
 import CategoryNavBar from "./CategoryNavBar";
 import TableContent from "./TableContent";
 
-const AppContent = ({ response, setResponse }) => {
+const AppContent = ({ response, setResponse, handleLoggingOut }) => {
 
 	const [ activeCategory, setActiveCategory ] = useState('All Questions');		//name of the currently active category
 
 	const handleCategoryClick = (category) => {
 		setActiveCategory(category);												//change the currently active category
+		if(category === 'LogOut') {
+			handleLoggingOut();
+		}
 	}
 
 	if (response.timer !== 0) {
@@ -121,6 +124,7 @@ AppContent.propTypes = {
 		data: propTypes.object,
 	}),
 	setResponse: propTypes.func,
+	handleLoggingOut: propTypes.func
 };
 
 

@@ -10,7 +10,7 @@ import {
 } from "../styles/slider";
 import propTypes from "prop-types";
 
-const Header = ({ message, timer = 0 }) => {
+const Header = ({ message, timer = 0, isLoggingOut=false }) => {
 	const {
 		username,
 		isCookieValid,
@@ -28,7 +28,9 @@ const Header = ({ message, timer = 0 }) => {
 			<Slider>
 				<SliderText>
 					<span style={{ color: "#39ff14" }}>
-						{isLoading === true
+						{isLoggingOut === true
+							? "Logging Out ... "
+							: isLoading === true
 							? "Fetching Questions..."
 							: doesCookieExist === false
 							? "Go for it, Neo..."
@@ -48,7 +50,7 @@ const Header = ({ message, timer = 0 }) => {
 				<Line />
 				{isLoading === false &&
 				timer == 0 &&
-				(isTimeOut == true ? wasCookieSent === true : true) ? (
+				(!isLoggingOut && (isTimeOut == true ? wasCookieSent === true : true)) ? (
 					<SublineFull />
 				) : (
 					<>
@@ -59,7 +61,9 @@ const Header = ({ message, timer = 0 }) => {
 			</Slider>
 			<Div>
 				<span id="greeting">
-					{username == ""
+					{isLoggingOut
+						? `Till next time, ${username} ...`
+						: username == ""
 						? "Wake up, Neo..."
 						: `Welcome, ${username}!`}
 				</span>
@@ -78,6 +82,7 @@ Header.propTypes = {
 		wasCookieSent: propTypes.bool.isRequired,
 	}),
 	timer: propTypes.number,
+	isLoggingOut: propTypes.bool
 };
 
 export default Header;

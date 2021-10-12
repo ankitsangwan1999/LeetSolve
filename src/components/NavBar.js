@@ -1,5 +1,4 @@
 import React from "react";
-// import "../CSS_Styles/style.css";
 import { Div, Section } from "../styles/navbar";
 import {
 	Slider,

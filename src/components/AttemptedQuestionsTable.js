@@ -10,6 +10,7 @@ import {
 	Th,
 	Td,
 } from "../styles/table";
+import { Scrollable } from "../styles/scrollbar";
 
 const AttemptedQuestionsTable = ({ data }) => {
 	console.log("DATA:", data);
@@ -30,50 +31,57 @@ const AttemptedQuestionsTable = ({ data }) => {
 				</THead>
 			</Table>
 			<div></div>
-			<Table>
-				<colgroup>
-					<col span="1" style={{ width: "70%" }} />
-					<col span="1" style={{ width: "15%" }} />
-					<col span="1" style={{ width: "15%" }} />
-				</colgroup>
-				<TBody>
-					{data["stat_status_pairs"].map((que, index) => {
+			<Scrollable maxHeight="68vh">
+				<Table>
+					<colgroup>
+						<col span="1" style={{ width: "70%" }} />
+						<col span="1" style={{ width: "15%" }} />
+						<col span="1" style={{ width: "15%" }} />
+					</colgroup>
+					<TBody>
+						{data["stat_status_pairs"].map((que, index) => {
+							if (
+								!(
+									que["status"] === "ac" ||
+									que["status"] === "notac"
+								)
+							) {
+								//  return null if not attempted i.e. neither 'ac' nor 'notac'
+								return null;
+							}
 
-						if(!(que["status"] === "ac" || que["status"] === "notac")) {		//  return null if not attempted i.e. neither 'ac' nor 'notac'
-							return null;
-						}
-						
-						// if attempted then return as a row for the table
-						return (
-							<Tr key={index}>
-								<Td>
-									<a
-										href={`https://leetcode.com/problems/${que["stat"]["question__title_slug"]}`}
-										target="_blank"
-										rel="noreferrer"
-									>
-										{que["stat"]["question__title"]}
-									</a>
-								</Td>
-								<Td>
-									{que["difficulty"]["level"] == 1
-										? "Easy"
-										: que["difficulty"]["level"] == 2
-										? "Medium"
-										: "Hard"}
-								</Td>
-								<Td>
-									{que["status"] === "ac"
-										? "AC"
-										: que["status"] === "notac"
-										? "Not-AC"
-										: "Not-Attempted"}
-								</Td>
-							</Tr>
-						);
-					})}
-				</TBody>
-			</Table>
+							// if attempted then return as a row for the table
+							return (
+								<Tr key={index}>
+									<Td>
+										<a
+											href={`https://leetcode.com/problems/${que["stat"]["question__title_slug"]}`}
+											target="_blank"
+											rel="noreferrer"
+										>
+											{que["stat"]["question__title"]}
+										</a>
+									</Td>
+									<Td>
+										{que["difficulty"]["level"] == 1
+											? "Easy"
+											: que["difficulty"]["level"] == 2
+											? "Medium"
+											: "Hard"}
+									</Td>
+									<Td>
+										{que["status"] === "ac"
+											? "AC"
+											: que["status"] === "notac"
+											? "Not-AC"
+											: "Not-Attempted"}
+									</Td>
+								</Tr>
+							);
+						})}
+					</TBody>
+				</Table>
+			</Scrollable>
 		</TableContainer>
 	);
 };

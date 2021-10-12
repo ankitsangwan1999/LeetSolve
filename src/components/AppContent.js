@@ -168,6 +168,7 @@ AppContent.propTypes = {
 		data: propTypes.object,
 	}),
 	setResponse: propTypes.func,
+	handleLoggingOut: propTypes.func,
 };
 
 export default AppContent;

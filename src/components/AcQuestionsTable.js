@@ -12,24 +12,21 @@ import {
 } from "../styles/table";
 import { Scrollable } from "../styles/scrollbar";
 
-const QuestionsTable = ({ data }) => {
+const AcQuestionsTable = ({ data }) => {
 	console.log("DATA:", data);
 	return (
 		<TableContainer>
 			<Table>
 				<colgroup>
-					{/* added new column for "question_id" */}
-					<col span="1" style={{ width: "10%" }} />
-					<col span="1" style={{ width: "60%" }} />
+					<col span="1" style={{ width: "70%" }} />
 					<col span="1" style={{ width: "15%" }} />
 					<col span="1" style={{ width: "15%" }} />
 				</colgroup>
 				<THead>
 					<Tr>
-						<Th>ID</Th>
-						<Th>Title</Th>
+						<Th style={{ color: "00f2ff" }}>Title</Th>
 						<Th style={{ color: "pink" }}>Level</Th>
-						<Th>Status</Th>
+						<Th style={{ color: "00fff5" }}>Status</Th>
 					</Tr>
 				</THead>
 			</Table>
@@ -37,18 +34,19 @@ const QuestionsTable = ({ data }) => {
 			<Scrollable maxHeight="68vh">
 				<Table>
 					<colgroup>
-						<col span="1" style={{ width: "10%" }} />
-						<col span="1" style={{ width: "60%" }} />
+						<col span="1" style={{ width: "70%" }} />
 						<col span="1" style={{ width: "15%" }} />
 						<col span="1" style={{ width: "15%" }} />
 					</colgroup>
 					<TBody>
 						{data["stat_status_pairs"].map((que, index) => {
+							if (!(que["status"] === "ac")) {
+								//if not ac then return null
+								return null;
+							}
+							//if ac then return as a row for the table
 							return (
 								<Tr key={index}>
-									<Td>
-										{que["stat"]["frontend_question_id"]}
-									</Td>
 									<Td>
 										<a
 											href={`https://leetcode.com/problems/${que["stat"]["question__title_slug"]}`}
@@ -82,7 +80,7 @@ const QuestionsTable = ({ data }) => {
 	);
 };
 
-QuestionsTable.propTypes = {
+AcQuestionsTable.propTypes = {
 	data: propTypes.shape({
 		stat_status_pairs: propTypes.arrayOf(
 			propTypes.shape({
@@ -98,4 +96,4 @@ QuestionsTable.propTypes = {
 	}),
 };
 
-export default QuestionsTable;
+export default AcQuestionsTable;

@@ -1,6 +1,8 @@
 import React from "react";
 import QuestionsTable from "./QuestionsTable";
 import AttemptedQuestionsTable from "./AttemptedQuestionsTable";
+import AcQuestionsTable from "./AcQuestionsTable"
+import NotAcQuestionsTable from "./NotAcQuestionsTable"
 import propTypes from "prop-types";
 
 const TableContent = ({ data, category }) => {
@@ -19,8 +21,20 @@ const TableContent = ({ data, category }) => {
                 <AttemptedQuestionsTable data={data} />
             );
         
+        case 'Accepted' : 
+            return (
+                <AcQuestionsTable data={data} />
+            );
+        
+        case 'Not Accepted' : 
+            return (
+                <NotAcQuestionsTable data={data} />
+            );
+        
         default : 
-            alert("Fix this issue to get Points.");
+            return (
+                null
+            )
 
     }
 

@@ -1,5 +1,5 @@
 import "regenerator-runtime/runtime"; // To be able to use async-await syntax
-const { app, BrowserWindow, ipcMain, shell, session } = require("electron");
+const { app, BrowserWindow, ipcMain, shell, session ,screen} = require("electron");
 const path = require("path");
 const url = require("url");
 const axios = require("axios");
@@ -17,15 +17,19 @@ const createWindow = () => {
 	mainWindow = new BrowserWindow({
 		width: 1000,
 		height: 800,
+		minWidth:600,
+		minHeight:600,
 		icon: __dirname + "/src/static/images/icon.png",
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
 		},
+		
+		
 		autoHideMenuBar: true,
 	});
 	cookieJar = session.defaultSession.cookies;
-
+	
 	mainWindow.loadURL(
 		url.format({
 			pathname: path.join(__dirname, "/index.html"),
@@ -112,17 +116,6 @@ ipcMain.on("user-data", async (e) => {
 	//     .catch((err) => {
 	//         console.log("Can't Set");
 	//     });
-
-	// To remove a cookie: Will be used in logout, inside a different even i.e. user-logout
-	// try {
-	// 	await cookieJar.remove(
-	// 		"https://leetsolve.matrix.com",
-	// 		"MY_TASTY_COOKIE"
-	// 	);
-	// 	console.log("Cookie Removed");
-	// } catch (e) {
-	// 	console.log("Problem Removing the cookie", e);
-	// }
 
 	// TESTING ENDS
 
@@ -239,6 +232,22 @@ ipcMain.on("user-data", async (e) => {
 	//         mainWindow.webContents.send("user-data", response);
 	//     });
 });
+
+ipcMain.handle("user-logout", async (event) => {		//To handle when "user-logout" event is invoked from UI renderer side(LogOut.js)
+	try {
+		await cookieJar.remove(							//Removing the saved cookie
+			"https://leetsolve.matrix.com",
+			"MY_TASTY_COOKIE"
+		);
+		console.log("Cookie Removed");
+		BrowserWindow.getFocusedWindow().reload();		//Reloading the window when logout is successful
+		return "success";
+	} catch (e) {
+		console.log("Problem Removing the cookie", e);
+		return "fail";
+	}
+
+})
 
 // Spawning the Main Window
 app.on("ready", createWindow);

@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { backgroundImageProperty } from "./constants";
-import { greetingAnimation } from "./navbar";
+import { greetingAnimation } from "./header";
 
 export const Div = styled.div`
     display: flex;

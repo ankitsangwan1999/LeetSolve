@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import emitUserDataEvent from "../Constants.js";
-import NavBar from "./NavBar";
+import emitUserDataEvent from "../helpers/EmitUserDataEvent";
+import Header from "./Header";
 import PreLoader from "./PreLoader";
 import { backgroundImageProperty } from "../styles/constants";
 import AppContent from "./AppContent";
+import { ipcRenderer } from "electron";
+import GifComponent from "./GifComponent";
 
 const App = () => {
 	const [response, setResponse] = useState({
@@ -19,6 +21,17 @@ const App = () => {
 		timer: 0,
 		shouldRunTimer: false,
 	});
+	const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+	const handleLoggingOut = () => {
+		setIsLoggingOut(true);
+	};
+
+	const onVideoEnd = () => {
+		ipcRenderer.invoke("user-logout").then((result) => {
+			console.log(result);
+		});
+	};
 
 	const startTimer = () => {
 		console.log("Starting the Timer.");
@@ -51,11 +64,15 @@ const App = () => {
 		}
 	}, [response.shouldRunTimer]);
 
-	if (response.message.isLoading === false) {
+	if (response.message.isLoading === false && !isLoggingOut) {
 		return (
 			<>
-				<NavBar message={response.message} timer={response.timer} />
-				<AppContent response={response} setResponse={setResponse} />
+				<Header message={response.message} timer={response.timer} />
+				<AppContent
+					response={response}
+					setResponse={setResponse}
+					handleLoggingOut={handleLoggingOut}
+				/>
 				<div
 					style={{
 						color: "#39ff14",
@@ -71,10 +88,38 @@ const App = () => {
 				</div>
 			</>
 		);
+	} else if (isLoggingOut) {
+		return (
+			<>
+				<Header
+					message={response.message}
+					isLoggingOut={isLoggingOut}
+				/>
+				<PreLoader />
+				<GifComponent
+					src="src/static/gifs/iDontBelieveThat.mp4"
+					video={true}
+					onVideoEnd={onVideoEnd}
+				/>
+				<div
+					style={{
+						color: "#39ff14",
+						padding: "10px",
+						backgroundImage: backgroundImageProperty,
+						marginTop: "auto",
+					}}
+				>
+					<span>
+						Issue:- Footer: Made with Love(Animated Icon) for
+						ContriHub&apos;21. Loading {response.timer}
+					</span>
+				</div>
+			</>
+		);
 	} else {
 		return (
 			<>
-				<NavBar message={response.message} />
+				<Header message={response.message} />
 				<PreLoader />
 				<div
 					style={{

@@ -28,6 +28,7 @@ export const Div = styled.div`
             ? css`
                   font-family: "Tetris Font";
                   margin: 0 0 0 10px;
+                  cursor: pointer;
               `
             : css`
                   flex-basis: 20%;

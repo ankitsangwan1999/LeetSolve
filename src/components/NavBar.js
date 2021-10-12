@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/style.css';
+// import "../CSS_Styles/style.css";
 import { Div, Section } from "../styles/navbar";
 import {
 	Slider,
@@ -29,8 +29,8 @@ const NavBar = ({ message, timer = 0 }) => {
 
 	return (
 		<Section>
-			<Div type="logo">
-				<span id="Logo" className="titlelogo" onClick={refreshPage}>LeetSolve</span>
+			<Div type="logo" onClick={refreshPage}>
+				<span id="Logo" className="titlelogo">LeetSolve</span>
 			</Div>
 			<Slider>
 				<SliderText>

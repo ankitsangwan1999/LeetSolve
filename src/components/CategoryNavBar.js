@@ -2,6 +2,7 @@ import React from "react";
 import { CategoryNavBarSection } from "../styles/category-navbar";
 import { CategoryButton } from "../styles/category";
 import PropTypes from "prop-types";
+import LogOut from "./LogOut";
 
 const CategoryNavBar = ({ categories = [], handleCategoryClick, activeCategory }) => {
 
@@ -26,6 +27,7 @@ const CategoryNavBar = ({ categories = [], handleCategoryClick, activeCategory }
 					</CategoryButton>
 				);
 			})}
+			<LogOut handleLogOutClick={() => categoryClickHandle("LogOut")}/>
 		</CategoryNavBarSection>
 	);
 };

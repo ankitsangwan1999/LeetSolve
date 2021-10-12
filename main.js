@@ -117,17 +117,6 @@ ipcMain.on("user-data", async (e) => {
 	//         console.log("Can't Set");
 	//     });
 
-	// To remove a cookie: Will be used in logout, inside a different even i.e. user-logout
-	// try {
-	// 	await cookieJar.remove(
-	// 		"https://leetsolve.matrix.com",
-	// 		"MY_TASTY_COOKIE"
-	// 	);
-	// 	console.log("Cookie Removed");
-	// } catch (e) {
-	// 	console.log("Problem Removing the cookie", e);
-	// }
-
 	// TESTING ENDS
 
 	cookieJar
@@ -243,6 +232,22 @@ ipcMain.on("user-data", async (e) => {
 	//         mainWindow.webContents.send("user-data", response);
 	//     });
 });
+
+ipcMain.handle("user-logout", async (event) => {		//To handle when "user-logout" event is invoked from UI renderer side(LogOut.js)
+	try {
+		await cookieJar.remove(							//Removing the saved cookie
+			"https://leetsolve.matrix.com",
+			"MY_TASTY_COOKIE"
+		);
+		console.log("Cookie Removed");
+		BrowserWindow.getFocusedWindow().reload();		//Reloading the window when logout is successful
+		return "success";
+	} catch (e) {
+		console.log("Problem Removing the cookie", e);
+		return "fail";
+	}
+
+})
 
 // Spawning the Main Window
 app.on("ready", createWindow);

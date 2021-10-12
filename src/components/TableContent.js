@@ -33,9 +33,7 @@ const TableContent = ({ data, category }) => {
         
         default : 
             return (
-                <div>
-                    Not yet implemented!!
-                </div>
+                null
             )
 
     }

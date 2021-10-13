@@ -19,10 +19,11 @@ const QuestionsTable = ({ data }) => {
 			<Table>
 				<colgroup>
 					{/* added new column for "question_id" */}
-					<col span="1" style={{ width: "10%" }} />
-					<col span="1" style={{ width: "60%" }} />
-					<col span="1" style={{ width: "15%" }} />
-					<col span="1" style={{ width: "15%" }} />
+					<col span="1" style={{ width: "9%" }} />
+					<col span="1" style={{ width: "55%" }} />
+					<col span="1" style={{ width: "12%" }} />
+					<col span="1" style={{ width: "12%" }} />
+					<col span="1" style={{ width: "12%" }} />
 				</colgroup>
 				<THead>
 					<Tr>
@@ -30,6 +31,7 @@ const QuestionsTable = ({ data }) => {
 						<Th>Title</Th>
 						<Th style={{ color: "pink" }}>Level</Th>
 						<Th>Status</Th>
+						<Th>Paid</Th>
 					</Tr>
 				</THead>
 			</Table>
@@ -37,10 +39,11 @@ const QuestionsTable = ({ data }) => {
 			<Scrollable maxHeight="68vh">
 				<Table>
 					<colgroup>
-						<col span="1" style={{ width: "10%" }} />
-						<col span="1" style={{ width: "60%" }} />
-						<col span="1" style={{ width: "15%" }} />
-						<col span="1" style={{ width: "15%" }} />
+						<col span="1" style={{ width: "9%" }} />
+						<col span="1" style={{ width: "55%" }} />
+						<col span="1" style={{ width: "12%" }} />
+						<col span="1" style={{ width: "12%" }} />
+						<col span="1" style={{ width: "12%" }} />
 					</colgroup>
 					<TBody>
 						{data["stat_status_pairs"].map((que, index) => {
@@ -71,6 +74,11 @@ const QuestionsTable = ({ data }) => {
 											: que["status"] === "notac"
 											? "Not-AC"
 											: "Not-Attempted"}
+									</Td>
+									<Td>
+										{que["paid_only"] === true
+											? "Premium"
+											: "Free"}
 									</Td>
 								</Tr>
 							);

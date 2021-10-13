@@ -60,24 +60,27 @@ function Popup({ popup, setPopup, data }) {
 				<TableContainer>
 					<Table>
 						<colgroup>
-							<col span="1" style={{ width: "70%" }} />
+							<col span="1" style={{ width: "60%" }} />
 							<col span="1" style={{ width: "15%" }} />
 							<col span="1" style={{ width: "15%" }} />
+							<col span="1" style={{ width: "10" }} />
 						</colgroup>
 						<THead>
 							<Tr>
 								<Th style={{ color: "00f2ff" }}>Title</Th>
 								<Th style={{ color: "pink" }}>Level</Th>
 								<Th style={{ color: "00fff5" }}>Status</Th>
+								<Th>Paid</Th>
 							</Tr>
 						</THead>
 					</Table>
 					<div></div>
 					<Table>
 						<colgroup>
-							<col span="1" style={{ width: "70%" }} />
+							<col span="1" style={{ width: "60%" }} />
 							<col span="1" style={{ width: "15%" }} />
 							<col span="1" style={{ width: "15%" }} />
+							<col span="1" style={{ width: "10" }} />
 						</colgroup>
 						<TBody>
 							<Tr key={1}>
@@ -103,6 +106,11 @@ function Popup({ popup, setPopup, data }) {
 										: data["status"] === "notac"
 										? "Not-AC"
 										: "Not-Attempted"}
+								</Td>
+								<Td>
+									{data["paid_only"] === true
+										? "Premium"
+										: "Free"}
 								</Td>
 							</Tr>
 						</TBody>

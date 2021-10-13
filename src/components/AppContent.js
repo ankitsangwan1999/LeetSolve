@@ -107,20 +107,23 @@ const AppContent = ({ response, setResponse }) => {
 				if (response.message.isCookieValid) {
 					return (
 						<>
-							<CategoryNavBar
-								categories={[
-									"All Questions",
-									"Attempted",
-									"Accepted",
-									"Not Accepted",
-								]} // list of categories to be displayed at the top like - All questions, Attempted and so on.
-								data={response.data}
-								handleCategoryClick={handleCategoryClick}
-								activeCategory={activeCategory}
-							/>
-							<CategoryButton onClick={SelectRandom}>
-								Select Random
-							</CategoryButton>
+							<div style={{ display: "inline-block" }}>
+								<CategoryNavBar
+									categories={[
+										"All Questions",
+										"Attempted",
+										"Accepted",
+										"Not Accepted",
+									]} // list of categories to be displayed at the top like - All questions, Attempted and so on.
+									data={response.data}
+									handleCategoryClick={handleCategoryClick}
+									activeCategory={activeCategory}
+								/>
+
+								<CategoryButton onClick={SelectRandom}>
+									Select Random
+								</CategoryButton>
+							</div>
 							<TableContent
 								data={response.data}
 								category={activeCategory}

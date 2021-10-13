@@ -18,15 +18,17 @@ const AcQuestionsTable = ({ data }) => {
 		<TableContainer>
 			<Table>
 				<colgroup>
-					<col span="1" style={{ width: "70%" }} />
+					<col span="1" style={{ width: "60%" }} />
 					<col span="1" style={{ width: "15%" }} />
 					<col span="1" style={{ width: "15%" }} />
+					<col span="1" style={{ width: "10" }} />
 				</colgroup>
 				<THead>
 					<Tr>
 						<Th style={{ color: "00f2ff" }}>Title</Th>
 						<Th style={{ color: "pink" }}>Level</Th>
 						<Th style={{ color: "00fff5" }}>Status</Th>
+						<Th>Paid</Th>
 					</Tr>
 				</THead>
 			</Table>
@@ -34,9 +36,10 @@ const AcQuestionsTable = ({ data }) => {
 			<Scrollable maxHeight="68vh">
 				<Table>
 					<colgroup>
-						<col span="1" style={{ width: "70%" }} />
+						<col span="1" style={{ width: "60%" }} />
 						<col span="1" style={{ width: "15%" }} />
 						<col span="1" style={{ width: "15%" }} />
+						<col span="1" style={{ width: "10" }} />
 					</colgroup>
 					<TBody>
 						{data["stat_status_pairs"].map((que, index) => {
@@ -69,6 +72,11 @@ const AcQuestionsTable = ({ data }) => {
 											: que["status"] === "notac"
 											? "Not-AC"
 											: "Not-Attempted"}
+									</Td>
+									<Td>
+										{que["paid_only"] === true
+											? "Premium"
+											: "Free"}
 									</Td>
 								</Tr>
 							);

@@ -18,5 +18,6 @@ Here's to the crazy ones:
     <td align="center"><a href="https://github.com/gursimran18"><img src="https://github.com/gursimran18.png.png?v=4?s=100" width="100px;" alt="Gursimran Kaur Saini"/><br /><sub><b>Gursimran Kaur Saini</b></sub></a><br /></td>
     <td align="center"><a href="ttps://github.com/always0p"><img src="https://github.com/always0p.png.png?v=4?s=100" width="100px;" alt="Jaspal Singh"/><br /><sub><b>Jaspal Singh</b></sub></a><br /></td> 
     <td align="center"><a href="https://github.com/sudhanshu1221"><img src="https://github.com/sudhanshu1221.png.png?v=4?s=100" width="100px;" alt="Sudhanshu Kumar"/><br /><sub><b>Sudhanshu Kumar</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/Yashikaj14"><img src="https://github.com/Yashikaj14.png.png?v=4?s=100" width="100px;" alt="Yashika Jain"/><br /><sub><b>Yashika Jain</b></sub></a><br /></td>
   </tr>
 </table>

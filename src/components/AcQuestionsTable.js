@@ -12,20 +12,33 @@ import {
 } from "../styles/table";
 import { Scrollable } from "../styles/scrollbar";
 
-const AcQuestionsTable = ({ data }) => {
+const AcQuestionsTable = ({ data, onShuffle }) => {
 	console.log("DATA:", data);
 	return (
 		<TableContainer>
 			<Table>
 				<colgroup>
-					<col span="1" style={{ width: "60%" }} />
-					<col span="1" style={{ width: "15%" }} />
-					<col span="1" style={{ width: "15%" }} />
-					<col span="1" style={{ width: "10" }} />
+					<col span="1" style={{ width: "9%" }} />
+					<col span="1" style={{ width: "55%" }} />
+					<col span="1" style={{ width: "12%" }} />
+					<col span="1" style={{ width: "12%" }} />
+					<col span="1" style={{ width: "12%" }} />
 				</colgroup>
 				<THead>
 					<Tr>
-						<Th style={{ color: "00f2ff" }}>Title</Th>
+						<Th>ID</Th>
+						<Th style={{ color: "00f2ff" }}>
+							<img
+								src="../static/images/random.png"
+								style={{
+									float: "left",
+									width: "40px",
+									height: "40px",
+								}}
+								onClick={onShuffle}
+							/>{" "}
+							Title
+						</Th>
 						<Th style={{ color: "pink" }}>Level</Th>
 						<Th style={{ color: "00fff5" }}>Status</Th>
 						<Th>Paid</Th>
@@ -36,10 +49,11 @@ const AcQuestionsTable = ({ data }) => {
 			<Scrollable maxHeight="68vh">
 				<Table>
 					<colgroup>
-						<col span="1" style={{ width: "60%" }} />
-						<col span="1" style={{ width: "15%" }} />
-						<col span="1" style={{ width: "15%" }} />
-						<col span="1" style={{ width: "10" }} />
+						<col span="1" style={{ width: "9%" }} />
+						<col span="1" style={{ width: "55%" }} />
+						<col span="1" style={{ width: "12%" }} />
+						<col span="1" style={{ width: "12%" }} />
+						<col span="1" style={{ width: "12%" }} />
 					</colgroup>
 					<TBody>
 						{data["stat_status_pairs"].map((que, index) => {
@@ -50,6 +64,9 @@ const AcQuestionsTable = ({ data }) => {
 							//if ac then return as a row for the table
 							return (
 								<Tr key={index}>
+									<Td>
+										{que["stat"]["frontend_question_id"]}
+									</Td>
 									<Td>
 										<a
 											href={`https://leetcode.com/problems/${que["stat"]["question__title_slug"]}`}

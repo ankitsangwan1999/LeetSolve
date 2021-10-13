@@ -6,7 +6,7 @@ import { backgroundImageProperty } from "../styles/constants";
 import AppContent from "./AppContent";
 import { ipcRenderer } from "electron";
 import GifComponent from "./GifComponent";
-
+//import "../styles/App.css";
 const App = () => {
 	const [response, setResponse] = useState({
 		message: {
@@ -21,18 +21,17 @@ const App = () => {
 		timer: 0,
 		shouldRunTimer: false,
 	});
-	const [ isLoggingOut, setIsLoggingOut ] = useState(false);
+	const [isLoggingOut, setIsLoggingOut] = useState(false);
 
 	const handleLoggingOut = () => {
 		setIsLoggingOut(true);
-	}
+	};
 
 	const onVideoEnd = () => {
-        ipcRenderer.invoke("user-logout")
-            .then((result) => {
-                console.log(result);
-        })
-	}
+		ipcRenderer.invoke("user-logout").then((result) => {
+			console.log(result);
+		});
+	};
 
 	const startTimer = () => {
 		console.log("Starting the Timer.");
@@ -69,7 +68,11 @@ const App = () => {
 		return (
 			<>
 				<Header message={response.message} timer={response.timer} />
-				<AppContent response={response} setResponse={setResponse} handleLoggingOut={handleLoggingOut} />
+				<AppContent
+					response={response}
+					setResponse={setResponse}
+					handleLoggingOut={handleLoggingOut}
+				/>
 				<div
 					style={{
 						color: "#39ff14",
@@ -85,10 +88,13 @@ const App = () => {
 				</div>
 			</>
 		);
-	} else if(isLoggingOut) {
+	} else if (isLoggingOut) {
 		return (
 			<>
-				<Header message={response.message} isLoggingOut={isLoggingOut}/>
+				<Header
+					message={response.message}
+					isLoggingOut={isLoggingOut}
+				/>
 				<PreLoader />
 				<GifComponent
 					src="src/static/gifs/iDontBelieveThat.mp4"

@@ -11,9 +11,10 @@ import {
 	Td,
 } from "../styles/table";
 import { Scrollable } from "../styles/scrollbar";
-
-const QuestionsTable = ({ data }) => {
+//import shuffle_image from "../static/images/random.png";
+const QuestionsTable = ({ data, onShuffle }) => {
 	console.log("DATA:", data);
+	console.log(typeof shuffle_image);
 	return (
 		<TableContainer>
 			<Table>
@@ -28,7 +29,25 @@ const QuestionsTable = ({ data }) => {
 				<THead>
 					<Tr>
 						<Th>ID</Th>
-						<Th>Title</Th>
+						<Th>
+							{/* <span
+								style={{
+									background:
+										"url('../static/images/random.jpg')",
+								}}
+							></span>{" "} */}
+							<img
+								src="../static/images/random.png"
+								style={{
+									float: "left",
+									width: "40px",
+									height: "40px",
+								}}
+								title="Pick one Random Problem"
+								onClick={onShuffle}
+							/>{" "}
+							Title
+						</Th>
 						<Th style={{ color: "pink" }}>Level</Th>
 						<Th>Status</Th>
 						<Th>Paid</Th>

@@ -1,43 +1,31 @@
 import React from "react";
 import QuestionsTable from "./QuestionsTable";
 import AttemptedQuestionsTable from "./AttemptedQuestionsTable";
-import AcQuestionsTable from "./AcQuestionsTable"
-import NotAcQuestionsTable from "./NotAcQuestionsTable"
+import AcQuestionsTable from "./AcQuestionsTable";
+import NotAcQuestionsTable from "./NotAcQuestionsTable";
 import propTypes from "prop-types";
 
-const TableContent = ({ data, category }) => {
+const TableContent = ({ data, category, onShuffle }) => {
+	//  This component checks the category and returns the corresponding component accordingly
 
-    //  This component checks the category and returns the corresponding component accordingly
+	switch (category) {
+		case "All Questions":
+			return <QuestionsTable data={data} onShuffle={onShuffle} />;
 
-    switch(category) {
+		case "Attempted":
+			return (
+				<AttemptedQuestionsTable data={data} onShuffle={onShuffle} />
+			);
 
-        case 'All Questions' : 
-            return (
-                <QuestionsTable data={data} />
-            );
-        
-        case 'Attempted' : 
-            return (
-                <AttemptedQuestionsTable data={data} />
-            );
-        
-        case 'Accepted' : 
-            return (
-                <AcQuestionsTable data={data} />
-            );
-        
-        case 'Not Accepted' : 
-            return (
-                <NotAcQuestionsTable data={data} />
-            );
-        
-        default : 
-            return (
-                null
-            )
+		case "Accepted":
+			return <AcQuestionsTable data={data} onShuffle={onShuffle} />;
 
-    }
+		case "Not Accepted":
+			return <NotAcQuestionsTable data={data} onShuffle={onShuffle} />;
 
+		default:
+			return null;
+	}
 };
 
 TableContent.propTypes = {
@@ -54,7 +42,8 @@ TableContent.propTypes = {
 			})
 		),
 	}),
-    category: propTypes.string,
+	category: propTypes.string,
+	onShuffle: propTypes.func,
 };
 
 export default TableContent;

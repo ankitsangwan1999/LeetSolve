@@ -60,13 +60,15 @@ function Popup({ popup, setPopup, data }) {
 				<TableContainer>
 					<Table>
 						<colgroup>
-							<col span="1" style={{ width: "60%" }} />
-							<col span="1" style={{ width: "15%" }} />
-							<col span="1" style={{ width: "15%" }} />
-							<col span="1" style={{ width: "10" }} />
+							<col span="1" style={{ width: "9%" }} />
+							<col span="1" style={{ width: "55%" }} />
+							<col span="1" style={{ width: "12%" }} />
+							<col span="1" style={{ width: "12%" }} />
+							<col span="1" style={{ width: "12%" }} />
 						</colgroup>
 						<THead>
 							<Tr>
+								<Th>ID</Th>
 								<Th style={{ color: "00f2ff" }}>Title</Th>
 								<Th style={{ color: "pink" }}>Level</Th>
 								<Th style={{ color: "00fff5" }}>Status</Th>
@@ -77,13 +79,15 @@ function Popup({ popup, setPopup, data }) {
 					<div></div>
 					<Table>
 						<colgroup>
-							<col span="1" style={{ width: "60%" }} />
-							<col span="1" style={{ width: "15%" }} />
-							<col span="1" style={{ width: "15%" }} />
-							<col span="1" style={{ width: "10" }} />
+							<col span="1" style={{ width: "9%" }} />
+							<col span="1" style={{ width: "55%" }} />
+							<col span="1" style={{ width: "12%" }} />
+							<col span="1" style={{ width: "12%" }} />
+							<col span="1" style={{ width: "12%" }} />
 						</colgroup>
 						<TBody>
 							<Tr key={1}>
+								<Td>{data["stat"]["frontend_question_id"]}</Td>
 								<Td>
 									<a
 										href={`https://leetcode.com/problems/${data["stat"]["question__title_slug"]}`}

@@ -117,16 +117,18 @@ const AppContent = ({ response, setResponse }) => {
 									]} // list of categories to be displayed at the top like - All questions, Attempted and so on.
 									data={response.data}
 									handleCategoryClick={handleCategoryClick}
+									onShuffle={SelectRandom}
 									activeCategory={activeCategory}
 								/>
 
-								<CategoryButton onClick={SelectRandom}>
+								{/* <CategoryButton onClick={SelectRandom}>
 									Select Random
-								</CategoryButton>
+								</CategoryButton> */}
 							</div>
 							<TableContent
 								data={response.data}
 								category={activeCategory}
+								onShuffle={SelectRandom}
 							/>
 							{popup && (
 								<Popup

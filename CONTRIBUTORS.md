@@ -15,6 +15,7 @@ Here's to the crazy ones:
   </tr>
   
   <tr>
+    <td align="center"><a href="https://github.com/abhijeetp94"><img src="https://github.com/abhijeetp94.png?v=4?s=100" width="100px;" alt="Abhijeet Pandey"/><br /><sub><b>Abhijeet Pandey</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/gursimran18"><img src="https://github.com/gursimran18.png.png?v=4?s=100" width="100px;" alt="Gursimran Kaur Saini"/><br /><sub><b>Gursimran Kaur Saini</b></sub></a><br /></td>
     <td align="center"><a href="ttps://github.com/always0p"><img src="https://github.com/always0p.png.png?v=4?s=100" width="100px;" alt="Jaspal Singh"/><br /><sub><b>Jaspal Singh</b></sub></a><br /></td> 
     <td align="center"><a href="https://github.com/sudhanshu1221"><img src="https://github.com/sudhanshu1221.png.png?v=4?s=100" width="100px;" alt="Sudhanshu Kumar"/><br /><sub><b>Sudhanshu Kumar</b></sub></a><br /></td>

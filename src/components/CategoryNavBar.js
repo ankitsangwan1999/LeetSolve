@@ -3,7 +3,6 @@ import { CategoryNavBarSection } from "../styles/category-navbar";
 import { CategoryButton } from "../styles/category";
 import PropTypes from "prop-types";
 import LogOut from "./LogOut";
-
 const CategoryNavBar = ({
 	categories = [],
 	handleCategoryClick,
@@ -32,6 +31,7 @@ const CategoryNavBar = ({
 					);
 				})
 			}
+
 			<LogOut handleLogOutClick={() => categoryClickHandle("LogOut")} />
 		</CategoryNavBarSection>
 	);

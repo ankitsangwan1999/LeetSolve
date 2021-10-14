@@ -29,13 +29,13 @@ const AttemptedQuestionsTable = ({ data, onShuffle }) => {
 						<Th>ID</Th>
 						<Th style={{ color: "00f2ff" }}>
 							<img
-								src="../static/images/random.png"
+								src="src/static/images/random.png"
 								style={{
 									float: "left",
-									width: "40px",
-									height: "40px",
+									width: "2rem",
 								}}
 								onClick={onShuffle}
+								title="Pick one Random Problem"
 							/>{" "}
 							Title
 						</Th>

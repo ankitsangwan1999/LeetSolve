@@ -3,6 +3,7 @@ import QuestionsTable from "./QuestionsTable";
 import AttemptedQuestionsTable from "./AttemptedQuestionsTable";
 import AcQuestionsTable from "./AcQuestionsTable";
 import NotAcQuestionsTable from "./NotAcQuestionsTable";
+import VirtualContest from "./VirtualContest";
 import propTypes from "prop-types";
 
 const TableContent = ({ data, category, onShuffle }) => {
@@ -22,7 +23,8 @@ const TableContent = ({ data, category, onShuffle }) => {
 
 		case "Not Accepted":
 			return <NotAcQuestionsTable data={data} onShuffle={onShuffle} />;
-
+		case "Virtual Contest":
+			return <VirtualContest data={data} />;
 		default:
 			return null;
 	}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import propTypes, { array } from "prop-types";
 
 import {
@@ -10,16 +10,13 @@ import {
 	Th,
 	Td,
 } from "../styles/table";
-import { Scrollable } from "../styles/scrollbar";
-//import shuffle_image from "../static/images/icon.png";
-const QuestionsTable = ({ data, onShuffle }) => {
-	console.log("DATA:", data);
-	console.log(typeof shuffle_image);
+function VirtualContest() {
+	const [contest, setContest] = useState(false);
+	const HandleVirtualContest = () => {};
 	return (
 		<TableContainer>
 			<Table>
 				<colgroup>
-					{/* added new column for "question_id" */}
 					<col span="1" style={{ width: "9%" }} />
 					<col span="1" style={{ width: "55%" }} />
 					<col span="1" style={{ width: "12%" }} />
@@ -29,7 +26,7 @@ const QuestionsTable = ({ data, onShuffle }) => {
 				<THead>
 					<Tr>
 						<Th>ID</Th>
-						<Th>
+						<Th style={{ color: "00f2ff" }}>
 							<img
 								src="src/static/images/random.png"
 								style={{
@@ -38,11 +35,11 @@ const QuestionsTable = ({ data, onShuffle }) => {
 								}}
 								onClick={onShuffle}
 								title="Pick one Random Problem"
-							/>
+							/>{" "}
 							Title
 						</Th>
 						<Th style={{ color: "pink" }}>Level</Th>
-						<Th>Status</Th>
+						<Th style={{ color: "00fff5" }}>Status</Th>
 						<Th>Paid</Th>
 					</Tr>
 				</THead>
@@ -59,6 +56,11 @@ const QuestionsTable = ({ data, onShuffle }) => {
 					</colgroup>
 					<TBody>
 						{data["stat_status_pairs"].map((que, index) => {
+							if (!(que["status"] === "notac")) {
+								//if not notac then return null
+								return null;
+							}
+							//if notac then return as a row for the table
 							return (
 								<Tr key={index}>
 									<Td>
@@ -100,22 +102,6 @@ const QuestionsTable = ({ data, onShuffle }) => {
 			</Scrollable>
 		</TableContainer>
 	);
-};
+}
 
-QuestionsTable.propTypes = {
-	data: propTypes.shape({
-		stat_status_pairs: propTypes.arrayOf(
-			propTypes.shape({
-				difficulty: propTypes.shape({ level: propTypes.number }),
-				stat: propTypes.shape({
-					question__title: propTypes.string,
-					question__title_slug: propTypes.string,
-				}),
-				level: propTypes.number,
-				status: propTypes.string,
-			})
-		),
-	}),
-};
-
-export default QuestionsTable;
+export default VirtualContest;

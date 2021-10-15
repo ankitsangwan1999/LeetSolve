@@ -28,10 +28,11 @@ let mainWindow, cookieJar;
 
 const createWindow = () => {
 	mainWindow = new BrowserWindow({
-		width: 1000,
-		height: 800,
-		minWidth: 600,
-		minHeight: 600,
+		show: false,
+		// width: 1000,
+		// height: 800,
+		// minWidth: 600,
+		// minHeight: 600,
 		icon: __dirname + "/src/static/images/icon.png",
 		webPreferences: {
 			nodeIntegration: true,
@@ -40,6 +41,8 @@ const createWindow = () => {
 
 		autoHideMenuBar: true,
 	});
+	mainWindow.maximize();
+	mainWindow.show();
 	cookieJar = session.defaultSession.cookies;
 
 	mainWindow.loadURL(

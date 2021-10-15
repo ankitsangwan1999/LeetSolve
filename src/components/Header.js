@@ -20,10 +20,16 @@ const Header = ({ message, timer = 0, isLoggingOut=false }) => {
 		wasCookieSent,
 	} = message;
 
+	function refreshPage(){
+		// the reload false reloads the current page from the cache 
+		// the reload true reloads the page from the server
+		window.location.reload(false);
+	}
+
 	return (
 		<Section>
-			<Div type="logo">
-				<span id="Logo">LeetSolve</span>
+			<Div type="logo" onClick={refreshPage}>
+				<span id="Logo" className="titlelogo">LeetSolve</span>
 			</Div>
 			<Slider>
 				<SliderText>

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { ipcRenderer } from "electron";
 import { Div, Textarea, Button } from "../styles/cookie-form.js";
 import propTypes from "prop-types";
+import { HANDLE_FORM_EVENT, USER_DATA_EVENT } from "../Constants.js";
 
 const CookieForm = ({ setResponse }) => {
 	const input = useRef(null);
@@ -12,8 +13,8 @@ const CookieForm = ({ setResponse }) => {
 			alert("Empty Field Not Allowed");
 		} else {
 			setIsFormSubmitted(true);
-			ipcRenderer.send("handle-form", input.current.value);
-			ipcRenderer.on("user-data", (e, res) => {
+			ipcRenderer.send(HANDLE_FORM_EVENT, input.current.value);
+			ipcRenderer.on(USER_DATA_EVENT, (e, res) => {
 				console.log("Client-Form:", res);
 				setResponse((prev) => {
 					return {

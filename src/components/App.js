@@ -6,6 +6,7 @@ import { backgroundImageProperty } from "../styles/constants";
 import AppContent from "./AppContent";
 import { ipcRenderer } from "electron";
 import GifComponent from "./GifComponent";
+import { LOGOUT_EVENT } from "../Constants";
 
 const App = () => {
 	const [response, setResponse] = useState({
@@ -28,7 +29,7 @@ const App = () => {
 	};
 
 	const onVideoEnd = () => {
-		ipcRenderer.invoke("user-logout").then((result) => {
+		ipcRenderer.invoke(LOGOUT_EVENT).then((result) => {
 			console.log(result);
 		});
 	};

@@ -17,8 +17,6 @@ function Popup({ popup, setPopup, data }) {
 				background: "#00000050",
 				width: "100%",
 				height: "100vh",
-				top: 0,
-				left: 0,
 			}}
 		>
 			<div
@@ -27,10 +25,10 @@ function Popup({ popup, setPopup, data }) {
 					width: "70%",
 					margin: "0 auto",
 					height: "auto",
-					"max-height": "70vh",
-					"margin-top": "calc(100vh - 85vh - 20px)",
+					maxHeight: "70vh",
+					marginTop: "calc(100vh - 85vh - 20px)",
 					background: "black",
-					"border-radius": "4px",
+					borderRadius: "4px",
 					padding: "20px",
 					border: "1px solid #999",
 					overflow: "auto",
@@ -46,11 +44,11 @@ function Popup({ popup, setPopup, data }) {
 						background: "#ededed",
 						width: "25px",
 						height: "25px",
-						"border-radius": "50%",
-						"line-height": "20px",
-						"text-align": "center",
+						borderRadius: "50%",
+						lineHeight: "20px",
+						textAlign: "center",
 						border: "1px solid #999",
-						"font-size": "20px",
+						fontSize: "20px",
 					}}
 					onClick={() => setPopup(false)}
 				>

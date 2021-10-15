@@ -6,7 +6,7 @@ import { backgroundImageProperty } from "../styles/constants";
 import AppContent from "./AppContent";
 import { ipcRenderer } from "electron";
 import GifComponent from "./GifComponent";
-//import "../styles/App.css";
+
 const App = () => {
 	const [response, setResponse] = useState({
 		message: {

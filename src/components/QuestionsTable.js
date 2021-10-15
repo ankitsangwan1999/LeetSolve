@@ -11,6 +11,8 @@ import {
 	Td,
 } from "../styles/table";
 import { Scrollable } from "../styles/scrollbar";
+import { ShuffleButton } from "../styles/shufflestyle";
+
 //import shuffle_image from "../static/images/icon.png";
 const QuestionsTable = ({ data, onShuffle }) => {
 	console.log("DATA:", data);
@@ -30,15 +32,30 @@ const QuestionsTable = ({ data, onShuffle }) => {
 					<Tr>
 						<Th>ID</Th>
 						<Th>
-							<img
-								src="src/static/images/random.png"
-								style={{
-									float: "left",
-									width: "2rem",
-								}}
-								onClick={onShuffle}
-								title="Pick one Random Problem"
-							/>
+							{/* <a href="#" style={shufflestyle}>
+								<img
+									src="src/static/images/random.png"
+									style={{
+										float: "left",
+										width: "2rem",
+									}}
+									onClick={onShuffle}
+									// title="Pick one Random Problem"
+								/>
+								<span>Pick one Random Problem</span>
+							</a> */}
+							<ShuffleButton>
+								<img
+									src="src/static/images/random.png"
+									style={{
+										float: "left",
+										width: "2rem",
+									}}
+									onClick={onShuffle}
+									// title="Pick one Random Problem"
+								/>
+								<span>Pick one Random Question</span>
+							</ShuffleButton>
 							Title
 						</Th>
 						<Th style={{ color: "pink" }}>Level</Th>
@@ -116,6 +133,7 @@ QuestionsTable.propTypes = {
 			})
 		),
 	}),
+	onShuffle: propTypes.func,
 };
 
 export default QuestionsTable;

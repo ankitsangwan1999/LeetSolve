@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import propTypes, { array } from "prop-types";
 
 import {
@@ -10,10 +10,9 @@ import {
 	Th,
 	Td,
 } from "../styles/table";
-import { Scrollable } from "../styles/scrollbar";
-import { ShuffleButton } from "../styles/shufflestyle";
-const AttemptedQuestionsTable = ({ data, onShuffle }) => {
-	console.log("DATA:", data);
+function VirtualContest() {
+	const [contest, setContest] = useState(false);
+	const HandleVirtualContest = () => {};
 	return (
 		<TableContainer>
 			<Table>
@@ -28,18 +27,15 @@ const AttemptedQuestionsTable = ({ data, onShuffle }) => {
 					<Tr>
 						<Th>ID</Th>
 						<Th style={{ color: "00f2ff" }}>
-							<ShuffleButton>
-								<img
-									src="src/static/images/random.png"
-									style={{
-										float: "left",
-										width: "2rem",
-									}}
-									onClick={onShuffle}
-									// title="Pick one Random Problem"
-								/>
-								<span>Pick one Random Question</span>
-							</ShuffleButton>
+							<img
+								src="src/static/images/random.png"
+								style={{
+									float: "left",
+									width: "2rem",
+								}}
+								onClick={onShuffle}
+								title="Pick one Random Problem"
+							/>{" "}
 							Title
 						</Th>
 						<Th style={{ color: "pink" }}>Level</Th>
@@ -60,17 +56,11 @@ const AttemptedQuestionsTable = ({ data, onShuffle }) => {
 					</colgroup>
 					<TBody>
 						{data["stat_status_pairs"].map((que, index) => {
-							if (
-								!(
-									que["status"] === "ac" ||
-									que["status"] === "notac"
-								)
-							) {
-								//  return null if not attempted i.e. neither 'ac' nor 'notac'
+							if (!(que["status"] === "notac")) {
+								//if not notac then return null
 								return null;
 							}
-
-							// if attempted then return as a row for the table
+							//if notac then return as a row for the table
 							return (
 								<Tr key={index}>
 									<Td>
@@ -112,23 +102,6 @@ const AttemptedQuestionsTable = ({ data, onShuffle }) => {
 			</Scrollable>
 		</TableContainer>
 	);
-};
+}
 
-AttemptedQuestionsTable.propTypes = {
-	data: propTypes.shape({
-		stat_status_pairs: propTypes.arrayOf(
-			propTypes.shape({
-				difficulty: propTypes.shape({ level: propTypes.number }),
-				stat: propTypes.shape({
-					question__title: propTypes.string,
-					question__title_slug: propTypes.string,
-				}),
-				level: propTypes.number,
-				status: propTypes.string,
-			})
-		),
-	}),
-	onShuffle: propTypes.func,
-};
-
-export default AttemptedQuestionsTable;
+export default VirtualContest;

@@ -1,11 +1,24 @@
 import "regenerator-runtime/runtime"; // To be able to use async-await syntax
-const { app, BrowserWindow, ipcMain, shell, session ,screen} = require("electron");
+const {
+	app,
+	BrowserWindow,
+	ipcMain,
+	shell,
+	session,
+	screen,
+} = require("electron");
 const path = require("path");
 const url = require("url");
 const axios = require("axios");
 import checkCookieValidity from "./src/api/CheckCookieValidity";
 import makeCookie from "./src/api/makeCookie";
-import { API_URL, TIME_OUT_LIMIT } from "./src/Constants";
+import {
+	API_URL,
+	LOGOUT_EVENT,
+	USER_DATA_EVENT,
+	HANDLE_FORM_EVENT,
+	TIME_OUT_LIMIT,
+} from "./src/Constants";
 
 // for DEV purpose only
 import smallResponse from "./src/DummyData/smallResponse";
@@ -15,21 +28,19 @@ let mainWindow, cookieJar;
 
 const createWindow = () => {
 	mainWindow = new BrowserWindow({
-		width: 1000,
-		height: 800,
-		minWidth:600,
-		minHeight:600,
+		show: false,
 		icon: __dirname + "/src/static/images/icon.png",
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
 		},
-		
-		
+
 		autoHideMenuBar: true,
 	});
+	mainWindow.maximize();
+	mainWindow.show();
 	cookieJar = session.defaultSession.cookies;
-	
+
 	mainWindow.loadURL(
 		url.format({
 			pathname: path.join(__dirname, "/index.html"),
@@ -51,7 +62,7 @@ const createWindow = () => {
 };
 
 // Catch handle-form event
-ipcMain.on("handle-form", async (e, cookie) => {
+ipcMain.on(HANDLE_FORM_EVENT, async (e, cookie) => {
 	cookie = cookie.trim();
 	console.log("Server: Received handle-form event with cookie:", cookie);
 	const cookieHeaderString = `LEETCODE_SESSION=${cookie};`;
@@ -88,7 +99,7 @@ ipcMain.on("handle-form", async (e, cookie) => {
 					.catch((err) => {
 						console.log("ERROR: While Getting All Cookie Values");
 					});
-				mainWindow.webContents.send("user-data", response);
+				mainWindow.webContents.send(USER_DATA_EVENT, response);
 			})
 			.catch((err) => {
 				console.log("ERROR: While Setting Cookie.", err);
@@ -101,12 +112,12 @@ ipcMain.on("handle-form", async (e, cookie) => {
 			"This Cookie is either invalid or expired./Req Timed Out",
 			response
 		);
-		mainWindow.webContents.send("user-data", response);
+		mainWindow.webContents.send(USER_DATA_EVENT, response);
 	}
 });
 
 // Catch user-data event emitted by Client
-ipcMain.on("user-data", async (e) => {
+ipcMain.on(USER_DATA_EVENT, async (e) => {
 	// TESTING BEGINS
 	// cookieJar
 	//     .set(makeCookie(<ENTER_YOUR_COOKIE_HERE>))
@@ -130,7 +141,7 @@ ipcMain.on("user-data", async (e) => {
 					const response = await checkCookieValidity(
 						cookieHeaderString
 					);
-					mainWindow.webContents.send("user-data", response);
+					mainWindow.webContents.send(USER_DATA_EVENT, response);
 				} catch (response) {
 					if (response.message.isTimeOut) {
 						console.log(
@@ -144,7 +155,7 @@ ipcMain.on("user-data", async (e) => {
 						);
 					}
 
-					mainWindow.webContents.send("user-data", response);
+					mainWindow.webContents.send(USER_DATA_EVENT, response);
 				}
 			} else {
 				console.log("ERROR: Can't Find Your Cookie");
@@ -158,7 +169,7 @@ ipcMain.on("user-data", async (e) => {
 					},
 					data: {},
 				};
-				mainWindow.webContents.send("user-data", response);
+				mainWindow.webContents.send(USER_DATA_EVENT, response);
 			}
 		})
 		.catch((err) => {
@@ -187,19 +198,19 @@ ipcMain.on("user-data", async (e) => {
 	//             console.log("This Cookie is either invalid or expired.");
 	//             response.message.isCookieValid = false;
 	//             response.message.isTimeOut = false;
-	//             mainWindow.webContents.send("user-data", response);
+	//             mainWindow.webContents.send(USER_DATA_EVENT, response);
 	//         } else {
 	//             console.log("Hi", response.message.username);
 	//             response.message.isCookieValid = true;
 	//             response.message.isTimeOut = false;
-	//             mainWindow.webContents.send("user-data", response);
+	//             mainWindow.webContents.send(USER_DATA_EVENT, response);
 	//         }
 	//     })
 	//     .catch((err) => {
 	//         console.log("May be Request took long time to reply...", err);
 	//         response.message.isTimeOut = true;
 	//         response.message.isCookieValid = true; // Doesn't matter when isTimeOut = true
-	//         mainWindow.webContents.send("user-data", response);
+	//         mainWindow.webContents.send(USER_DATA_EVENT, response);
 	//     });
 
 	/**
@@ -217,37 +228,38 @@ ipcMain.on("user-data", async (e) => {
 	//             console.log("This Cookie is either invalid or expired.");
 	//             response.message.isCookieValid = false;
 	//             response.message.isTimeOut = false;
-	//             mainWindow.webContents.send("user-data", response);
+	//             mainWindow.webContents.send(USER_DATA_EVENT, response);
 	//         } else {
 	//             console.log("Hi", response.message.username);
 	//             response.message.isCookieValid = true;
 	//             response.message.isTimeOut = false;
-	//             mainWindow.webContents.send("user-data", response);
+	//             mainWindow.webContents.send(USER_DATA_EVENT, response);
 	//         }
 	//     })
 	//     .catch((err) => {
 	//         console.log("May be Request took long time to reply...", err);
 	//         response.message.isTimeOut = true;
 	//         response.message.isCookieValid = true; // Doesnot matter when isTimeOut = true
-	//         mainWindow.webContents.send("user-data", response);
+	//         mainWindow.webContents.send(USER_DATA_EVENT, response);
 	//     });
 });
 
-ipcMain.handle("user-logout", async (event) => {		//To handle when "user-logout" event is invoked from UI renderer side(LogOut.js)
+ipcMain.handle(LOGOUT_EVENT, async (event) => {
+	//To handle when "user-logout" event is invoked from UI renderer side(LogOut.js)
 	try {
-		await cookieJar.remove(							//Removing the saved cookie
+		await cookieJar.remove(
+			//Removing the saved cookie
 			"https://leetsolve.matrix.com",
 			"MY_TASTY_COOKIE"
 		);
 		console.log("Cookie Removed");
-		BrowserWindow.getFocusedWindow().reload();		//Reloading the window when logout is successful
+		BrowserWindow.getFocusedWindow().reload(); //Reloading the window when logout is successful
 		return "success";
 	} catch (e) {
 		console.log("Problem Removing the cookie", e);
 		return "fail";
 	}
-
-})
+});
 
 // Spawning the Main Window
 app.on("ready", createWindow);

@@ -11,22 +11,40 @@ import {
 	Td,
 } from "../styles/table";
 import { Scrollable } from "../styles/scrollbar";
-
-const NotAcQuestionsTable = ({ data }) => {
+import { ShuffleButton } from "../styles/shufflestyle";
+const NotAcQuestionsTable = ({ data, onShuffle }) => {
 	console.log("DATA:", data);
 	return (
 		<TableContainer>
 			<Table>
 				<colgroup>
-					<col span="1" style={{ width: "70%" }} />
-					<col span="1" style={{ width: "15%" }} />
-					<col span="1" style={{ width: "15%" }} />
+					<col span="1" style={{ width: "9%" }} />
+					<col span="1" style={{ width: "55%" }} />
+					<col span="1" style={{ width: "12%" }} />
+					<col span="1" style={{ width: "12%" }} />
+					<col span="1" style={{ width: "12%" }} />
 				</colgroup>
 				<THead>
 					<Tr>
-						<Th style={{ color: "00f2ff" }}>Title</Th>
+						<Th>ID</Th>
+						<Th style={{ color: "00f2ff" }}>
+							<ShuffleButton>
+								<img
+									src="src/static/images/random.png"
+									style={{
+										float: "left",
+										width: "2rem",
+									}}
+									onClick={onShuffle}
+									// title="Pick one Random Problem"
+								/>
+								<span>Pick one Random Question</span>
+							</ShuffleButton>
+							Title
+						</Th>
 						<Th style={{ color: "pink" }}>Level</Th>
 						<Th style={{ color: "00fff5" }}>Status</Th>
+						<Th>Paid</Th>
 					</Tr>
 				</THead>
 			</Table>
@@ -34,9 +52,11 @@ const NotAcQuestionsTable = ({ data }) => {
 			<Scrollable maxHeight="68vh">
 				<Table>
 					<colgroup>
-						<col span="1" style={{ width: "70%" }} />
-						<col span="1" style={{ width: "15%" }} />
-						<col span="1" style={{ width: "15%" }} />
+						<col span="1" style={{ width: "9%" }} />
+						<col span="1" style={{ width: "55%" }} />
+						<col span="1" style={{ width: "12%" }} />
+						<col span="1" style={{ width: "12%" }} />
+						<col span="1" style={{ width: "12%" }} />
 					</colgroup>
 					<TBody>
 						{data["stat_status_pairs"].map((que, index) => {
@@ -47,6 +67,9 @@ const NotAcQuestionsTable = ({ data }) => {
 							//if notac then return as a row for the table
 							return (
 								<Tr key={index}>
+									<Td>
+										{que["stat"]["frontend_question_id"]}
+									</Td>
 									<Td>
 										<a
 											href={`https://leetcode.com/problems/${que["stat"]["question__title_slug"]}`}
@@ -69,6 +92,11 @@ const NotAcQuestionsTable = ({ data }) => {
 											: que["status"] === "notac"
 											? "Not-AC"
 											: "Not-Attempted"}
+									</Td>
+									<Td>
+										{que["paid_only"] === true
+											? "Premium"
+											: "Free"}
 									</Td>
 								</Tr>
 							);
@@ -94,6 +122,7 @@ NotAcQuestionsTable.propTypes = {
 			})
 		),
 	}),
+	onShuffle: propTypes.func,
 };
 
 export default NotAcQuestionsTable;

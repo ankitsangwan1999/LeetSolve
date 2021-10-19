@@ -33,6 +33,9 @@ const AppContent = ({ response, setResponse }) => {
 
 							case "Not Accepted":
 								return que["status"] === "notac";
+
+							case "Reload":
+								return que["status"] === "notac";
 						}
 				  })
 				: response.data.stat_status_pairs;
@@ -114,6 +117,7 @@ const AppContent = ({ response, setResponse }) => {
 										"Attempted",
 										"Accepted",
 										"Not Accepted",
+										"Reload"
 									]} // list of categories to be displayed at the top like - All questions, Attempted and so on.
 									data={response.data}
 									handleCategoryClick={handleCategoryClick}

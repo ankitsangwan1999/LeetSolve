@@ -117,7 +117,6 @@ const AppContent = ({ response, setResponse }) => {
 										"Attempted",
 										"Accepted",
 										"Not Accepted",
-										"Reload"
 									]} // list of categories to be displayed at the top like - All questions, Attempted and so on.
 									data={response.data}
 									handleCategoryClick={handleCategoryClick}

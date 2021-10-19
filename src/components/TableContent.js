@@ -25,10 +25,6 @@ const TableContent = ({ data, category, onShuffle }) => {
 			return <NotAcQuestionsTable data={data} onShuffle={onShuffle} />;
 		case "Virtual Contest":
 			return <VirtualContest data={data} />;
-
-		case "Reload":
-			window.location.reload();
-			
 		default:
 			return null;
 	}

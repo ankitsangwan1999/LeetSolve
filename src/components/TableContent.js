@@ -27,7 +27,7 @@ const TableContent = ({ data, category, onShuffle }) => {
 			return <VirtualContest data={data} />;
 
 		case "Reload":
-			location.reload();
+			window.location.reload();
 			
 		default:
 			return null;

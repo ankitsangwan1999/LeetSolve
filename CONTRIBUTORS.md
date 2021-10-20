@@ -23,4 +23,8 @@ Here's to the crazy ones:
     <td align="center"><a href="https://github.com/shivani4208"><img src="https://github.com/shivani4208.png?v=4?s=100" width="100px;" alt="Shivani Kumari"/><br /><sub><b>Shivani Kumari</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/rdx-rockstar"><img src="https://github.com/rdx-rockstar.png.png?v=4?s=100" width="100px;" alt="Karimulla Mohammad"/><br /><sub><b>Karimulla Mohammad</b></sub></a><br /></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/AbhayD11"><img src="https://github.com/AbhayD11.png.png?v=4?s=100" width="100px;" alt="Abhay Dixit"/><br /><sub><b>Abhay Dixit</b></sub></a><br /></td>
+  
+ </tr>
 </table>

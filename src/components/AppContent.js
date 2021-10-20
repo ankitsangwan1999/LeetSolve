@@ -58,11 +58,7 @@ const AppContent = ({ response, setResponse }) => {
 				return (
 					<>
 						<PreLoader />
-						<GifComponent
-							src="src/static/gifs/atLast.mp4"
-							video={true}
-						/>
-						;
+						
 					</>
 				);
 			} else {

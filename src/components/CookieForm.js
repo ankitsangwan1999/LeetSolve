@@ -3,7 +3,12 @@ import { ipcRenderer } from "electron";
 import { Div, Textarea, Button } from "../styles/cookie-form.js";
 import propTypes from "prop-types";
 import { HANDLE_FORM_EVENT, USER_DATA_EVENT } from "../Constants.js";
+function removeFadeOut( el, speed ) {
+    var seconds = speed/1000;
+    el.style.transition = "opacity "+seconds+"s ease";
 
+    el.style.opacity = 0;
+}
 const CookieForm = ({ setResponse }) => {
 	const input = useRef(null);
 	const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -30,7 +35,7 @@ const CookieForm = ({ setResponse }) => {
 	};
 
 	return (
-		<Div>
+		<Div id="fade">
 			{!isFormSubmitted && (
 				<>
 					<img src="src/static/gifs/cookie.gif" />
@@ -45,6 +50,7 @@ const CookieForm = ({ setResponse }) => {
 					<Button
 						onClick={() => {
 							buttonClickHanlder();
+							removeFadeOut(document.getElementById('fade'), 2000);
 						}}
 					>
 						Enter Now
@@ -54,7 +60,7 @@ const CookieForm = ({ setResponse }) => {
 
 			{isFormSubmitted && (
 				<>
-					<img src="src/static/gifs/pleasing.gif" />
+					
 				</>
 			)}
 		</Div>

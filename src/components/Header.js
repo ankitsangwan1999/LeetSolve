@@ -1,4 +1,5 @@
 import React from "react";
+import { FaUndo } from "react-icons/fa";
 import { Div, Section } from "../styles/header";
 import {
 	Slider,
@@ -60,9 +61,9 @@ const Header = ({ message, timer = 0, isLoggingOut=false }) => {
 							? "Dodge This."
 							: `Time to Fly... in ${timer}`}
 							
-						<button style={{color: '#39ff14' , backgroundColor:'unset' , cursor:'pointer' , border:'none' , fontWeight:'bolder'}} 
+						<button style={{color: '#39ff14' , backgroundColor:'unset' , cursor:'pointer' , border:'none' , fontWeight:'bolder' , paddingLeft:'4rem'}}  
 						onClick={refreshPage}>
-							<span id="Logo" className="titlelogo">Reload</span>
+							<span id="Logo" className="titlelogo"><FaUndo/></span>
 						</button>
 					</span>
 				</SliderText>

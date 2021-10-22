@@ -33,9 +33,6 @@ const AppContent = ({ response, setResponse }) => {
 
 							case "Not Accepted":
 								return que["status"] === "notac";
-
-							// case "Reload":
-							// 	return ;
 						}
 				  })
 				: response.data.stat_status_pairs;

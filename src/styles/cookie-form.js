@@ -12,6 +12,16 @@ export const Div = styled.div`
     padding: 5px;
     background-image: ${backgroundImageProperty};
 `;
+export const Div1 = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: center;
+    width: 500px;
+    height: 500px;
+    padding: 5px;
+    
+`;
 
 export const Textarea = styled.textarea`
     resize: none;

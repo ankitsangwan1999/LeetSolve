@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { ipcRenderer } from "electron";
-import { Div, Textarea, Button } from "../styles/cookie-form.js";
+import { Div,Div1, Textarea, Button } from "../styles/cookie-form.js";
 import propTypes from "prop-types";
 import { HANDLE_FORM_EVENT, USER_DATA_EVENT } from "../Constants.js";
 function removeFadeOut( el, speed ) {
@@ -17,7 +17,8 @@ const CookieForm = ({ setResponse }) => {
 		if (input.current.value === "") {
 			alert("Empty Field Not Allowed");
 		} else {
-			setIsFormSubmitted(true);
+			removeFadeOut(document.getElementById('fade'), 2000);
+			
 			ipcRenderer.send(HANDLE_FORM_EVENT, input.current.value);
 			ipcRenderer.on(USER_DATA_EVENT, (e, res) => {
 				console.log("Client-Form:", res);
@@ -31,13 +32,17 @@ const CookieForm = ({ setResponse }) => {
 				});
 				ipcRenderer.removeAllListeners();
 			});
+			setTimeout(() => {
+				setIsFormSubmitted(true);
+			}, 2000);
+			
 		}
 	};
 
 	return (
-		<Div id="fade">
+		<Div>
 			{!isFormSubmitted && (
-				<>
+				<Div1 id="fade">
 					<img src="src/static/gifs/cookie.gif" />
 					<Textarea
 						rows="2"
@@ -49,18 +54,19 @@ const CookieForm = ({ setResponse }) => {
 					/>
 					<Button
 						onClick={() => {
+							
 							buttonClickHanlder();
-							removeFadeOut(document.getElementById('fade'), 2000);
+						
 						}}
 					>
 						Enter Now
 					</Button>
-				</>
+				</Div1>
 			)}
 
 			{isFormSubmitted && (
 				<>
-					
+				<img src="src/static/gifs/pleasing.gif" />	
 				</>
 			)}
 		</Div>

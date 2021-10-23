@@ -25,6 +25,6 @@ Here's to the crazy ones:
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/AbhayD11"><img src="https://github.com/AbhayD11.png.png?v=4?s=100" width="100px;" alt="Abhay Dixit"/><br /><sub><b>Abhay Dixit</b></sub></a><br /></td>
-  
+    <td align="center"><a href="https://github.com/AmitGupta7580"><img src="https://github.com/AmitGupta7580.png.png?v=4?s=100" width="100px;" alt="Amit Gupta"/><br /><sub><b>Amit Gupta</b></sub></a><br /></td>
  </tr>
 </table>

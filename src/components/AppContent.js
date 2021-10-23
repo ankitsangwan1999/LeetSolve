@@ -63,6 +63,7 @@ const AppContent = ({ response, setResponse }) => {
 							video={true}
 						/>
 						;
+						
 					</>
 				);
 			} else {

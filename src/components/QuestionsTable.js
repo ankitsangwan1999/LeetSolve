@@ -14,9 +14,186 @@ import { Scrollable } from "../styles/scrollbar";
 import { ShuffleButton } from "../styles/shufflestyle";
 
 //import shuffle_image from "../static/images/icon.png";
-const QuestionsTable = ({ data, onShuffle }) => {
+//import { Link } from 'react-router';
+import { useTable, usePagination } from "react-table";
+function CustomTable({ columns, data }) {
+	const {
+		getTableProps,
+		getTableBodyProps,
+		headerGroups,
+		prepareRow,
+		page,
+		canPreviousPage,
+		canNextPage,
+		pageOptions,
+		pageCount,
+		gotoPage,
+		nextPage,
+		previousPage,
+		setPageSize,
+		state: { pageIndex, pageSize },
+	} = useTable(
+		{
+			columns,
+			data,
+			initialState: { pageIndex: 0 },
+		},
+		usePagination
+	);
+
+	return (
+		<>
+			<div className="pagination">
+				<button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+					{"<<"}
+				</button>{" "}
+				<button
+					onClick={() => previousPage()}
+					disabled={!canPreviousPage}
+				>
+					{"<"}
+				</button>{" "}
+				<button onClick={() => nextPage()} disabled={!canNextPage}>
+					{">"}
+				</button>{" "}
+				<button
+					onClick={() => gotoPage(pageCount - 1)}
+					disabled={!canNextPage}
+				>
+					{">>"}
+				</button>{" "}
+				<span>
+					Page{" "}
+					<strong>
+						{pageIndex + 1} of {pageOptions.length}
+					</strong>{" "}
+					| Go to page:{" "}
+					<input
+						type="number"
+						defaultValue={pageIndex + 1}
+						onChange={(e) => {
+							const page = e.target.value
+								? Number(e.target.value) - 1
+								: 0;
+							gotoPage(page);
+						}}
+						style={{ width: "100px" }}
+					/>
+				</span>{" "}
+				<select
+					value={pageSize}
+					onChange={(e) => {
+						setPageSize(Number(e.target.value));
+					}}
+				>
+					{[10, 20, 30, 40, 50].map((pageSize) => (
+						<option key={pageSize} value={pageSize}>
+							Show {pageSize}
+						</option>
+					))}
+				</select>
+			</div>
+			{/* <Table>
+			<THead>
+				{headerGroups.map((headerGroup) => (
+					<Tr {...headerGroup.getHeaderGroupProps()}>
+						{headerGroup.headers.map((column) => (
+							<Th {...column.getHeaderProps()}>
+								{column.render("Header")}
+							</Th>
+						))}
+					</Tr>
+				))}
+			</THead></Table> */}
+			<Table {...getTableProps()}>
+				<TBody {...getTableBodyProps()}>
+					{page.map((row, i) => {
+						prepareRow(row);
+						return (
+							<Tr {...row.getRowProps()}>
+								{row.cells.map((cell) => {
+									return (
+										<Td {...cell.getCellProps()}>
+											{cell.render("Cell")}
+										</Td>
+									);
+								})}
+							</Tr>
+						);
+					})}
+				</TBody>
+			</Table>
+		</>
+	);
+}
+
+function QuestionsTable({ data, onShuffle }) {
 	console.log("DATA:", data);
 	console.log(typeof shuffle_image);
+
+	//extracting useful information
+	const useful_data = [];
+	data["stat_status_pairs"].map((que, index) => {
+		useful_data.push({
+			href: "https://leetcode.com/problems/"+que["stat"]["question__title_slug"],
+			ques_id: que["stat"]["frontend_question_id"],
+			ques_title: que["stat"]["question__title"],
+			level:
+				que["difficulty"]["level"] == 1
+					? "Easy"
+					: que["difficulty"]["level"] == 2
+					? "Medium"
+					: "Hard",
+			status:
+				que["status"] === "ac"
+					? "AC"
+					: que["status"] === "notac"
+					? "Not-AC"
+					: "Not-Attempted",
+			paid: que["paid_only"] === true ? "Premium" : "Free",
+		});
+	});
+	console.log(useful_data);
+
+	//defining column names and attributes
+	const columns = React.useMemo(
+		() => [
+			{
+				width: 9,
+				minWidth: 9,
+				Header: "ID",
+				accessor: "ques_id",
+			},
+			{
+				width: 55,
+				Header: "Title",
+				minWidth: 55,
+				id: "link",
+				accessor: d => d.href,
+				Cell: ({ row }) => <a href={row.original.href} target="_blank">{row.original.ques_title}</a>
+			},
+			{
+				width: 12,
+				minWidth: 12,
+				Header: "Level",
+				accessor: "level",
+			},
+			{
+				width: 12,
+				minWidth: 12,
+				Header: "Status",
+				accessor: "status",
+			},
+			{
+				width: 12,
+				minWidth: 12,
+				Header: "Paid",
+				accessor: "paid",
+			},
+		],
+		[]
+	);
+
 	return (
 		<TableContainer>
 			<Table>
@@ -74,7 +251,8 @@ const QuestionsTable = ({ data, onShuffle }) => {
 						<col span="1" style={{ width: "12%" }} />
 						<col span="1" style={{ width: "12%" }} />
 					</colgroup>
-					<TBody>
+				</Table>
+				{/* <TBody>
 						{data["stat_status_pairs"].map((que, index) => {
 							return (
 								<Tr key={index}>
@@ -112,12 +290,12 @@ const QuestionsTable = ({ data, onShuffle }) => {
 								</Tr>
 							);
 						})}
-					</TBody>
-				</Table>
+					</TBody> */}
+				<CustomTable columns={columns} data={useful_data} />
 			</Scrollable>
 		</TableContainer>
 	);
-};
+}
 
 QuestionsTable.propTypes = {
 	data: propTypes.shape({

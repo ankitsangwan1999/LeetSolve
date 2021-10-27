@@ -1,6 +1,5 @@
 import React from "react";
 import propTypes, { array } from "prop-types";
-
 import {
 	TableContainer,
 	Table,
@@ -16,7 +15,7 @@ import { ShuffleButton } from "../styles/shufflestyle";
 //import shuffle_image from "../static/images/icon.png";
 //import { Link } from 'react-router';
 import { useTable, usePagination } from "react-table";
-function CustomTable({ columns, data }) {
+function CustomTable({ columns, data, onShuffle_var }) {
 	const {
 		getTableProps,
 		getTableBodyProps,
@@ -43,20 +42,26 @@ function CustomTable({ columns, data }) {
 
 	return (
 		<>
-			<div className="pagination">
-				<button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+			<div className="pagination" style={{
+				 position: "absolute",
+				 right: "0",
+				 padding: "0px 27px 0px 0px"
+			}}>
+				<button style={{background: "#000000", color: "#FFFF00"}}
+				onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
 					{"<<"}
 				</button>{" "}
-				<button
+				<button style={{background: "#000000", color: "#FFFF00"}}
 					onClick={() => previousPage()}
 					disabled={!canPreviousPage}
 				>
 					{"<"}
 				</button>{" "}
-				<button onClick={() => nextPage()} disabled={!canNextPage}>
+				<button style={{background: "#000000", color: "#FFFF00"}}
+				onClick={() => nextPage()} disabled={!canNextPage}>
 					{">"}
 				</button>{" "}
-				<button
+				<button style={{background: "#000000", color: "#FFFF00"}}
 					onClick={() => gotoPage(pageCount - 1)}
 					disabled={!canNextPage}
 				>
@@ -77,10 +82,14 @@ function CustomTable({ columns, data }) {
 								: 0;
 							gotoPage(page);
 						}}
-						style={{ width: "100px" }}
+						style={{ width: "50px",
+								background: "#000000",
+								color: "#FFFF00", }}
 					/>
 				</span>{" "}
 				<select
+					style={{ background: "#000000",
+							color: "#ffffff", }}
 					value={pageSize}
 					onChange={(e) => {
 						setPageSize(Number(e.target.value));
@@ -93,19 +102,40 @@ function CustomTable({ columns, data }) {
 					))}
 				</select>
 			</div>
-			{/* <Table>
+			<Table {...getTableProps()} style={{
+				padding: "25px 0px 0px 0px",
+			}}>
 			<THead>
 				{headerGroups.map((headerGroup) => (
 					<Tr {...headerGroup.getHeaderGroupProps()}>
 						{headerGroup.headers.map((column) => (
 							<Th {...column.getHeaderProps()}>
+									{(() => {
+									switch (column.Header) {
+										case "Title":   
+											console.log(column.Header);	
+											return (<ShuffleButton>
+												<img
+													src="src/static/images/random.png"
+													style={{
+														float: "left",
+														width: "2rem",
+													}}
+													onClick={onShuffle_var}
+													// title="Pick one Random Problem"
+												/>
+												<span>Pick one Random Question</span>
+											</ShuffleButton>)
+									}
+								})()}
 								{column.render("Header")}
 							</Th>
 						))}
 					</Tr>
 				))}
-			</THead></Table> */}
-			<Table {...getTableProps()}>
+			</THead>
+			<div></div>
+			{/* <Table {...getTableProps()}> */}
 				<TBody {...getTableBodyProps()}>
 					{page.map((row, i) => {
 						prepareRow(row);
@@ -153,7 +183,7 @@ function QuestionsTable({ data, onShuffle }) {
 			paid: que["paid_only"] === true ? "Premium" : "Free",
 		});
 	});
-	console.log(useful_data);
+	//console.log(useful_data);
 
 	//defining column names and attributes
 	const columns = React.useMemo(
@@ -195,10 +225,11 @@ function QuestionsTable({ data, onShuffle }) {
 	);
 
 	return (
+		<>
 		<TableContainer>
-			<Table>
-				<colgroup>
-					{/* added new column for "question_id" */}
+			{/*<Table>
+				 <colgroup>
+					{/* added new column for "question_id" */}{/*
 					<col span="1" style={{ width: "9%" }} />
 					<col span="1" style={{ width: "55%" }} />
 					<col span="1" style={{ width: "12%" }} />
@@ -208,7 +239,7 @@ function QuestionsTable({ data, onShuffle }) {
 				<THead>
 					<Tr>
 						<Th>ID</Th>
-						<Th>
+					<Th>*/}
 							{/* <a href="#" style={shufflestyle}>
 								<img
 									src="src/static/images/random.png"
@@ -220,7 +251,7 @@ function QuestionsTable({ data, onShuffle }) {
 									// title="Pick one Random Problem"
 								/>
 								<span>Pick one Random Problem</span>
-							</a> */}
+							</a> */}{/*}
 							<ShuffleButton>
 								<img
 									src="src/static/images/random.png"
@@ -241,9 +272,9 @@ function QuestionsTable({ data, onShuffle }) {
 					</Tr>
 				</THead>
 			</Table>
-			<div></div>
-			<Scrollable maxHeight="68vh">
-				<Table>
+			<div></div>*/}
+			{/* <Scrollable maxHeight="68vh"> */}
+				{/* <Table>
 					<colgroup>
 						<col span="1" style={{ width: "9%" }} />
 						<col span="1" style={{ width: "55%" }} />
@@ -251,7 +282,7 @@ function QuestionsTable({ data, onShuffle }) {
 						<col span="1" style={{ width: "12%" }} />
 						<col span="1" style={{ width: "12%" }} />
 					</colgroup>
-				</Table>
+				</Table>  */}
 				{/* <TBody>
 						{data["stat_status_pairs"].map((que, index) => {
 							return (
@@ -291,9 +322,10 @@ function QuestionsTable({ data, onShuffle }) {
 							);
 						})}
 					</TBody> */}
-				<CustomTable columns={columns} data={useful_data} />
-			</Scrollable>
+				<CustomTable columns={columns} data={useful_data} onShuffle_var={onShuffle} />
+			{/* </Scrollable> */}
 		</TableContainer>
+		</>
 	);
 }
 

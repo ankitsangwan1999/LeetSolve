@@ -1,10 +1,10 @@
 import React from "react";
 import { Div,Rotate } from "../styles/footer";
 import propTypes from "prop-types";
-const Footer = ({timer=0,message}) => {
+const Footer = () => {
 	return (
 		<Div>
-			 Made with<Rotate> ❤️ </Rotate> &ensp; for ContriHub&apos;21. {message} {timer}
+			 Made with<Rotate> ❤️ </Rotate> &emsp;  for ContriHub&apos;21. 
 		</Div>	
 	);
 	};	

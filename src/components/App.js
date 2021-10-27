@@ -75,7 +75,7 @@ const App = () => {
 					setResponse={setResponse}
 					handleLoggingOut={handleLoggingOut}
 				/>
-				<Footer timer ={response.timer} message={"EXISTS"}/>
+				<Footer/>
 			</>
 		);
 	} else if (isLoggingOut) {
@@ -91,7 +91,7 @@ const App = () => {
 					video={true}
 					onVideoEnd={onVideoEnd}
 				/>
-				<Footer timer ={response.timer} message={"Loading"}/>
+				<Footer/>
 			</>
 		);
 	} else {
@@ -99,7 +99,7 @@ const App = () => {
 			<>
 				<Header message={response.message} />
 				<PreLoader />
-				<Footer timer ={response.timer} message={"Loading"}/>
+				<Footer/>
 			</>
 		);
 	}

@@ -15,17 +15,13 @@ z-index : 1;
 animation: ${rotate} 0.5s linear infinite;
 bottom :0;
 position:absolute;
-padding: 7px;
+padding: 12px;
 
 `;
 export const Div = styled.div`
-    
+
     color: #39ff14;
-    padding: 3px;
+    padding: 10px;
     background-image:  ${backgroundImageProperty};
-    marginTop: auto;
-    position:absolute;
-    bottom:0;
-    width:100%;
-    
+    margin-top: auto;
 `;

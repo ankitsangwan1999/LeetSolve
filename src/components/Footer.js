@@ -4,7 +4,7 @@ import propTypes from "prop-types";
 const Footer = () => {
 	return (
 		<Div>
-			 Made with<Rotate> ❤️ </Rotate> &emsp;  for ContriHub&apos;21. 
+			 Made with <Rotate> ❤️ </Rotate> for ContriHub&apos;21. 
 		</Div>	
 	);
 	};	

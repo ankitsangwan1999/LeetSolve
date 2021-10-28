@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import propTypes, { array } from "prop-types";
+import React, { useEffect, useState } from "react";
+import propTypes from "prop-types";
+import { AddRemoveButton } from '../styles/add-remove-button'
+import 'regenerator-runtime';
+import emitUserDataEvent from "../helpers/EmitUserDataEvent";
 
 import {
 	TableContainer,
@@ -10,98 +13,168 @@ import {
 	Th,
 	Td,
 } from "../styles/table";
-function VirtualContest() {
-	const [contest, setContest] = useState(false);
-	const HandleVirtualContest = () => {};
-	return (
-		<TableContainer>
-			<Table>
-				<colgroup>
-					<col span="1" style={{ width: "9%" }} />
-					<col span="1" style={{ width: "55%" }} />
-					<col span="1" style={{ width: "12%" }} />
-					<col span="1" style={{ width: "12%" }} />
-					<col span="1" style={{ width: "12%" }} />
-				</colgroup>
-				<THead>
-					<Tr>
-						<Th>ID</Th>
-						<Th style={{ color: "00f2ff" }}>
-							<img
-								src="src/static/images/random.png"
-								style={{
-									float: "left",
-									width: "2rem",
-								}}
-								onClick={onShuffle}
-								title="Pick one Random Problem"
-							/>{" "}
-							Title
-						</Th>
-						<Th style={{ color: "pink" }}>Level</Th>
-						<Th style={{ color: "00fff5" }}>Status</Th>
-						<Th>Paid</Th>
-					</Tr>
-				</THead>
-			</Table>
-			<div></div>
-			<Scrollable maxHeight="68vh">
-				<Table>
-					<colgroup>
-						<col span="1" style={{ width: "9%" }} />
-						<col span="1" style={{ width: "55%" }} />
-						<col span="1" style={{ width: "12%" }} />
-						<col span="1" style={{ width: "12%" }} />
-						<col span="1" style={{ width: "12%" }} />
-					</colgroup>
-					<TBody>
-						{data["stat_status_pairs"].map((que, index) => {
-							if (!(que["status"] === "notac")) {
-								//if not notac then return null
-								return null;
-							}
-							//if notac then return as a row for the table
-							return (
-								<Tr key={index}>
-									<Td>
-										{que["stat"]["frontend_question_id"]}
-									</Td>
-									<Td>
-										<a
-											href={`https://leetcode.com/problems/${que["stat"]["question__title_slug"]}`}
-											target="_blank"
-											rel="noreferrer"
-										>
-											{que["stat"]["question__title"]}
-										</a>
-									</Td>
-									<Td>
-										{que["difficulty"]["level"] == 1
-											? "Easy"
-											: que["difficulty"]["level"] == 2
-											? "Medium"
-											: "Hard"}
-									</Td>
-									<Td>
-										{que["status"] === "ac"
-											? "AC"
-											: que["status"] === "notac"
-											? "Not-AC"
-											: "Not-Attempted"}
-									</Td>
-									<Td>
-										{que["paid_only"] === true
-											? "Premium"
-											: "Free"}
-									</Td>
-								</Tr>
-							);
-						})}
-					</TBody>
-				</Table>
-			</Scrollable>
-		</TableContainer>
-	);
+import { TIME_OUT_LIMIT } from "../Constants";
+
+const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuestions, setResponse }) => {
+	// console.log("DATA:", data);
+
+    const [ questionsData, setQuestionsData ] = useState(data);
+    const [ contestQuestions, setContestQuestions ] = useState(virtualContestQuestions);
+    const [ endingContest, setEndingContest ] = useState(false);
+
+    const handleEndButton = () => {
+		setEndingContest(true);
+    }
+
+	const handleCloseVirtualContest = () => {
+        setVirtualContestQuestions([]);
+	}
+
+    const handleGoBackToContest = () => {
+        setEndingContest(false);
+    }
+
+	useEffect(() => {
+        const interval  = setInterval(() => {
+            emitUserDataEvent(setResponse, setQuestionsData);
+        }, 1000*TIME_OUT_LIMIT );
+
+        return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+
+	}, []);
+
+    useEffect(() => {
+        let updatedQuestionsList = [];
+        questionsData["stat_status_pairs"].forEach(que => {
+            let flag = 0;
+            virtualContestQuestions.forEach(question => {
+                if(que["stat"]["frontend_question_id"] === question["stat"]["frontend_question_id"]) {
+                    flag=1;
+                    console.log(que["stat"]["question__title"], que["status"])
+                }
+            });
+            if(flag === 1) {
+                updatedQuestionsList.push(que);
+            }
+        });
+        setVirtualContestQuestions(updatedQuestionsList);
+        setContestQuestions(updatedQuestionsList);
+    }, [questionsData]);
+
+    return (
+        <div>
+            <TableContainer style={{pointerEvents: endingContest?"none":"auto" }}>
+                <Table>
+                    <colgroup>
+                        <col span="1" style={{ width: "10%" }} />
+                        <col span="1" style={{ width: "60%" }} />
+                        <col span="1" style={{ width: "15%" }} />
+                        <col span="1" style={{ width: "15%" }} />
+                    </colgroup>
+                    <THead>
+                        <Tr>
+                            <Th>ID</Th>
+                            <Th style={{ color: "00f2ff" }}>Title</Th>
+                            <Th style={{ color: "pink" }}>Level</Th>
+                            <Th style={{ color: "00fff5" }}>Status</Th>
+                        </Tr>
+                    </THead>
+                </Table>
+                <div></div>
+                
+                <Table>
+                    <colgroup>
+                        <col span="1" style={{ width: "10%" }} />
+                        <col span="1" style={{ width: "60%" }} />
+                        <col span="1" style={{ width: "15%" }} />
+                        <col span="1" style={{ width: "15%" }} />
+                    </colgroup>
+                    <TBody>
+                        {contestQuestions.map((que, index) => {
+
+                            return (
+                                <Tr key={index}>
+                                    <Td>
+                                        {que["stat"]["frontend_question_id"]}
+                                    </Td>
+                                    <Td>
+                                        <a
+                                            href={`https://leetcode.com/problems/${que["stat"]["question__title_slug"]}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                            {que["stat"]["question__title"]}
+                                        </a>
+                                    </Td>
+                                    <Td>
+                                        {que["difficulty"]["level"] == 1
+                                            ? "Easy"
+                                            : que["difficulty"]["level"] == 2
+                                            ? "Medium"
+                                            : "Hard"}
+                                    </Td>
+                                    <Td>
+                                        <AddRemoveButton isRemoveButton={que["status"]==="notac"} isAddButton={que["status"]==="ac"}>
+                                            {
+                                                que["status"]==="notac"
+                                                ?"Not AC"
+                                                :que["status"]==="ac"
+                                                ?"AC"
+                                                :"Not Attempted"
+                                            }
+                                        </AddRemoveButton>
+                                    </Td>
+                                </Tr>
+                            );
+                        })}
+                    </TBody>
+                </Table>
+            </TableContainer>
+            <AddRemoveButton isRemoveButton={true} onClick={handleEndButton} style={{pointerEvents: endingContest?"none":"auto" }}>
+                End Virtual Contest
+            </AddRemoveButton>
+            {
+                endingContest
+                ?<AddRemoveButton style={{marginLeft: "250px"}}>
+                    <div style={{color: "red"}}>
+                        Are you sure to end the contest?
+                    </div>
+                    <AddRemoveButton onClick={handleCloseVirtualContest} isRemoveButton={true}>Yes</AddRemoveButton>
+                    <AddRemoveButton onClick={handleGoBackToContest} isAddButton={true}>Go back to contest</AddRemoveButton>
+                </AddRemoveButton>
+                :null
+            }
+        </div>
+    )
 }
+
+VirtualContest.propTypes = {
+	data: propTypes.shape({
+		stat_status_pairs: propTypes.arrayOf(
+			propTypes.shape({
+				difficulty: propTypes.shape({ level: propTypes.number }),
+				stat: propTypes.shape({
+					question__title: propTypes.string,
+					question__title_slug: propTypes.string,
+				}),
+				level: propTypes.number,
+				status: propTypes.string,
+			})
+		),
+	}),
+	virtualContestQuestions: propTypes.arrayOf(
+		propTypes.shape({
+			difficulty: propTypes.shape({ level: propTypes.number }),
+			stat: propTypes.shape({
+				question__title: propTypes.string,
+				question__title_slug: propTypes.string,
+			}),
+			level: propTypes.number,
+			status: propTypes.string,
+		})
+	),
+	setVirtualContestQuestions: propTypes.func,
+    setResponse: propTypes.func
+};
 
 export default VirtualContest;

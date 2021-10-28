@@ -8,7 +8,9 @@ import {
 	Th,
 	Td,
 } from "../styles/table";
-function Popup({ popup, setPopup, data }) {
+import propTypes from "prop-types";
+
+function Popup({ popup, setPopup, data, warningMessage="" }) {
 	console.log(popup);
 	return (
 		<div
@@ -19,7 +21,47 @@ function Popup({ popup, setPopup, data }) {
 				height: "100vh",
 			}}
 		>
-			<div
+		{
+			warningMessage !== ""
+			?<div
+				style={{
+					position: "relative",
+					width: "50%",
+					margin: "0 auto",
+					height: "auto",
+					maxHeight: "70vh",
+					marginTop: "calc(100vh - 85vh - 40px)",
+					padding: "5px 5px 5px 5px",
+					background: "black",
+					borderRadius: "4px",
+					border: "1px solid #999",
+					overflow: "auto",
+					color: "red"
+				}}
+			>
+				{warningMessage}
+				<span
+					style={{
+						content: "x",
+						cursor: "pointer",
+						position: "fixed",
+						right: "calc(23%)",
+						background: "#ededed",
+						width: "25px",
+						height: "25px",
+						borderRadius: "50%",
+						lineHeight: "20px",
+						textAlign: "center",
+						border: "1px solid #999",
+						fontSize: "20px",
+						color: "black"
+					}}
+					onClick={() => setPopup(false)}
+				>
+					x
+				</span>
+			</div>
+			:<div
 				style={{
 					position: "relative",
 					width: "70%",
@@ -49,12 +91,14 @@ function Popup({ popup, setPopup, data }) {
 						textAlign: "center",
 						border: "1px solid #999",
 						fontSize: "20px",
+						color: "black"
 					}}
 					onClick={() => setPopup(false)}
 				>
 					x
 				</span>
 
+				
 				<TableContainer>
 					<Table>
 						<colgroup>
@@ -119,8 +163,28 @@ function Popup({ popup, setPopup, data }) {
 					</Table>
 				</TableContainer>
 			</div>
+		}
 		</div>
 	);
+}
+
+Popup.propTypes = {
+	popup: propTypes.bool,
+	setPopup: propTypes.func,
+	data: propTypes.shape({
+		stat_status_pairs: propTypes.arrayOf(
+			propTypes.shape({
+				difficulty: propTypes.shape({ level: propTypes.number }),
+				stat: propTypes.shape({
+					question__title: propTypes.string,
+					question__title_slug: propTypes.string,
+				}),
+				level: propTypes.number,
+				status: propTypes.string,
+			})
+		),
+	}),
+	warningMessage: propTypes.string,
 }
 
 export default Popup;

@@ -67,7 +67,7 @@ function CustomTable({ columns, data, onShuffle_var }) {
 				>
 					{">>"}
 				</button>{" "}
-				<span>
+				<span style={{fontFamily: "Cool Font"}}>
 					Page{" "}
 					<strong>
 						{pageIndex + 1} of {pageOptions.length}
@@ -87,9 +87,11 @@ function CustomTable({ columns, data, onShuffle_var }) {
 								color: "#FFFF00", }}
 					/>
 				</span>{" "}
+				<span>
 				<select
 					style={{ background: "#000000",
-							color: "#ffffff", }}
+							color: "#ffffff",
+							fontFamily: "Cool Font", }}
 					value={pageSize}
 					onChange={(e) => {
 						setPageSize(Number(e.target.value));
@@ -100,7 +102,7 @@ function CustomTable({ columns, data, onShuffle_var }) {
 							Show {pageSize}
 						</option>
 					))}
-				</select>
+				</select></span>
 			</div>
 			<Table {...getTableProps()} style={{
 				padding: "25px 0px 0px 0px",
@@ -136,6 +138,7 @@ function CustomTable({ columns, data, onShuffle_var }) {
 			</THead>
 			<div></div>
 			{/* <Table {...getTableProps()}> */}
+			{/* <Scrollable maxHeight="50vh"> */}
 				<TBody {...getTableBodyProps()}>
 					{page.map((row, i) => {
 						prepareRow(row);
@@ -152,6 +155,7 @@ function CustomTable({ columns, data, onShuffle_var }) {
 						);
 					})}
 				</TBody>
+			{/* </Scrollable> */}
 			</Table>
 		</>
 	);

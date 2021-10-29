@@ -7,6 +7,7 @@ import AppContent from "./AppContent";
 import { ipcRenderer } from "electron";
 import GifComponent from "./GifComponent";
 import { LOGOUT_EVENT } from "../Constants";
+import Footer from "./Footer"; 
 
 const App = () => {
 	const [response, setResponse] = useState({
@@ -74,19 +75,7 @@ const App = () => {
 					setResponse={setResponse}
 					handleLoggingOut={handleLoggingOut}
 				/>
-				<div
-					style={{
-						color: "#39ff14",
-						padding: "10px",
-						backgroundImage: backgroundImageProperty,
-						marginTop: "auto",
-					}}
-				>
-					<span>
-						Issue:- Footer: Made with Love(Animated Icon) for
-						ContriHub&apos;21. EXISTS. {response.timer}
-					</span>
-				</div>
+				<Footer/>
 			</>
 		);
 	} else if (isLoggingOut) {
@@ -102,19 +91,7 @@ const App = () => {
 					video={true}
 					onVideoEnd={onVideoEnd}
 				/>
-				<div
-					style={{
-						color: "#39ff14",
-						padding: "10px",
-						backgroundImage: backgroundImageProperty,
-						marginTop: "auto",
-					}}
-				>
-					<span>
-						Issue:- Footer: Made with Love(Animated Icon) for
-						ContriHub&apos;21. Loading {response.timer}
-					</span>
-				</div>
+				<Footer/>
 			</>
 		);
 	} else {
@@ -122,19 +99,7 @@ const App = () => {
 			<>
 				<Header message={response.message} />
 				<PreLoader />
-				<div
-					style={{
-						color: "#39ff14",
-						padding: "10px",
-						backgroundImage: backgroundImageProperty,
-						marginTop: "auto",
-					}}
-				>
-					<span>
-						Issue:- Footer: Made with Love(Animated Icon) for
-						ContriHub&apos;21. Loading {response.timer}
-					</span>
-				</div>
+				<Footer/>
 			</>
 		);
 	}

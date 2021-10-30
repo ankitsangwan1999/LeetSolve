@@ -28,5 +28,6 @@ Here's to the crazy ones:
     <td align="center"><a href="https://github.com/tiwarirajdeep"><img src="https://github.com/tiwarirajdeep.png.png?v=4?s=100" width="100px;" alt="Rajdeep Tiwari"/><br /><sub><b>Rajdeep Tiwari</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/AmitGupta7580"><img src="https://github.com/AmitGupta7580.png.png?v=4?s=100" width="100px;" alt="Amit Gupta"/><br /><sub><b>Amit Gupta</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/just-a-n00b"><img src="https://github.com/just-a-n00b.png.png?v=4?s=100" width="100px;" alt="Naman Mittal"/><br /><sub><b>Naman Mittal</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/kratibarkhania"><img src="https://github.com/kratibarkhania.png.png?v=4?s=100" width="100px;" alt="Krati Barkhania"/><br /><sub><b>Krati Barkhania</b></sub></a><br /></td>
  </tr>
 </table>

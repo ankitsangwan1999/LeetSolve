@@ -13,6 +13,7 @@ const AppContent = ({ response, setResponse, handleLoggingOut }) => {
 	const [popup, setPopup] = useState(false);
 	const [randomQues, setRandomQues] = useState({});
 	const [ virtualContestQuestions, setVirtualContestQuestions ] = useState([]);
+	const [ startTime, setStartTime ] = useState(0);
 
 	const handleCategoryClick = (category) => {
 		setActiveCategory(category);												//change the currently active category
@@ -139,6 +140,8 @@ const AppContent = ({ response, setResponse, handleLoggingOut }) => {
 								virtualContestQuestions={virtualContestQuestions}
 								setVirtualContestQuestions={setVirtualContestQuestions}
 								setResponse={setResponse}
+								startTime={startTime}
+								setStartTime={setStartTime}
 							/>
 							{popup && (
 								<Popup

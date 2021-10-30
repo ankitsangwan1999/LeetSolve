@@ -3,6 +3,7 @@ import propTypes from "prop-types";
 import { AddRemoveButton } from '../styles/add-remove-button'
 import 'regenerator-runtime';
 import emitUserDataEvent from "../helpers/EmitUserDataEvent";
+import { FaUndo } from "react-icons/fa";
 
 import {
 	TableContainer,
@@ -14,13 +15,32 @@ import {
 	Td,
 } from "../styles/table";
 import { TIME_OUT_LIMIT } from "../Constants";
+import ContestTimer from "./ContestTimer";
+import ContestSummary from "./ContestSummary";
 
-const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuestions, setResponse }) => {
+let solveTime = {};
+
+const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuestions, setResponse, startTime, setStartTime }) => {
 	// console.log("DATA:", data);
 
     const [ questionsData, setQuestionsData ] = useState(data);
     const [ contestQuestions, setContestQuestions ] = useState(virtualContestQuestions);
     const [ endingContest, setEndingContest ] = useState(false);
+    const [ contestEnded, setContestEnded ] = useState(false);
+
+    const calculateTimeElapsed = () => {
+        const curtime = Date.now();
+        let difference = curtime - startTime ;
+        let timeElapsed = {};
+        if (difference > 0) {
+            timeElapsed = {
+                hrs: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                mins: Math.floor((difference / (1000 * 60)) % 60),
+                secs: Math.floor((difference / 1000) % 60)
+            };
+        }
+        return timeElapsed;
+    }
 
     const handleEndButton = () => {
 		setEndingContest(true);
@@ -28,10 +48,15 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
 
 	const handleCloseVirtualContest = () => {
         setVirtualContestQuestions([]);
+        setStartTime(0);
 	}
 
     const handleGoBackToContest = () => {
         setEndingContest(false);
+    }
+    
+    const handleFetchData = () => {
+        emitUserDataEvent(setResponse, setQuestionsData);
     }
 
 	useEffect(() => {
@@ -58,8 +83,31 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
             }
         });
         setVirtualContestQuestions(updatedQuestionsList);
-        setContestQuestions(updatedQuestionsList);
+        setContestQuestions((prev) => {
+            prev.forEach(question => {
+                updatedQuestionsList.forEach(que => {
+                    if(que["stat"]["frontend_question_id"] === question["stat"]["frontend_question_id"] && que["status"] === "ac" && question["status"] !== "ac") {
+                        const id = que["stat"]["frontend_question_id"];
+                        solveTime[id] = calculateTimeElapsed();
+                        console.log(id, que["stat"]["question__title"], solveTime);
+                    }
+                });
+            });
+            return updatedQuestionsList;
+        });
     }, [questionsData]);
+
+    if(contestEnded) {
+        return (
+            <div>
+                Contest has ended !!
+                <ContestSummary contestQuestions={contestQuestions} solveTime={solveTime} />
+                <AddRemoveButton onClick={handleCloseVirtualContest} isRemoveButton={true}>
+                    Close Summary
+                </AddRemoveButton>
+            </div>
+        )
+    }
 
     return (
         <div>
@@ -133,13 +181,21 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
             <AddRemoveButton isRemoveButton={true} onClick={handleEndButton} style={{pointerEvents: endingContest?"none":"auto" }}>
                 End Virtual Contest
             </AddRemoveButton>
+
+            <ContestTimer setContestEnded={setContestEnded} startTime={startTime} />
+            
+            <AddRemoveButton isAddButton={true} onClick={handleFetchData} style={{pointerEvents: endingContest?"none":"auto", paddingTop: "5px", marginLeft: "45%" }}>
+                Fetch Status
+                <span style={{margin: "10px 0px 0px 6px" }}><FaUndo/></span>
+            </AddRemoveButton>
+            
             {
                 endingContest
-                ?<AddRemoveButton style={{marginLeft: "250px"}}>
+                ?<AddRemoveButton style={{marginLeft: "40%", marginTop: "30px" }}>
                     <div style={{color: "red"}}>
                         Are you sure to end the contest?
                     </div>
-                    <AddRemoveButton onClick={handleCloseVirtualContest} isRemoveButton={true}>Yes</AddRemoveButton>
+                    <AddRemoveButton onClick={() => setContestEnded(true)} isRemoveButton={true}>Yes</AddRemoveButton>
                     <AddRemoveButton onClick={handleGoBackToContest} isAddButton={true}>Go back to contest</AddRemoveButton>
                 </AddRemoveButton>
                 :null
@@ -174,7 +230,9 @@ VirtualContest.propTypes = {
 		})
 	),
 	setVirtualContestQuestions: propTypes.func,
-    setResponse: propTypes.func
+    setResponse: propTypes.func,
+    startTime: propTypes.number,
+    setStartTime: propTypes.func,
 };
 
 export default VirtualContest;

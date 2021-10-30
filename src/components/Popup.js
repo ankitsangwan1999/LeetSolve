@@ -9,6 +9,7 @@ import {
 	Td,
 } from "../styles/table";
 import propTypes from "prop-types";
+import { AddRemoveButton } from "../styles/add-remove-button";
 
 function Popup({ popup, setPopup, data, warningMessage="" }) {
 	console.log(popup);
@@ -26,40 +27,23 @@ function Popup({ popup, setPopup, data, warningMessage="" }) {
 			?<div
 				style={{
 					position: "relative",
-					width: "50%",
+					width: "27%",
 					margin: "0 auto",
 					height: "auto",
-					maxHeight: "70vh",
+					maxHeight: "75vh",
 					marginTop: "calc(100vh - 85vh - 40px)",
-					padding: "5px 5px 5px 5px",
+					padding: "5px 0px 5px 5px",
 					background: "black",
 					borderRadius: "4px",
 					border: "1px solid #999",
 					overflow: "auto",
-					color: "red"
+					color: "white"
 				}}
 			>
 				{warningMessage}
-				<span
-					style={{
-						content: "x",
-						cursor: "pointer",
-						position: "fixed",
-						right: "calc(23%)",
-						background: "#ededed",
-						width: "25px",
-						height: "25px",
-						borderRadius: "50%",
-						lineHeight: "20px",
-						textAlign: "center",
-						border: "1px solid #999",
-						fontSize: "20px",
-						color: "black"
-					}}
-					onClick={() => setPopup(false)}
-				>
-					x
-				</span>
+				<AddRemoveButton isRemoveButton={true} onClick={() => setPopup(false)} style={{fontSize: "18px", padding: "1px 10px 1px 10px", marginRight: "0px", position: "absolute", right: "0", top: "1px"}}>
+					X
+				</AddRemoveButton>
 			</div>
 			:<div
 				style={{

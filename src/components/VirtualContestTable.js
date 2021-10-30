@@ -17,7 +17,7 @@ import { CategoryButton } from "../styles/category";
 import Popup from "./Popup";
 import VirtualContest from "./VirtualContest";
 
-const VirtualContestTable = ({ data, virtualContestQuestions, setVirtualContestQuestions, setResponse }) => {
+const VirtualContestTable = ({ data, virtualContestQuestions, setVirtualContestQuestions, setResponse, startTime, setStartTime }) => {
 	console.log("DATA:", data);
 
 	const [ selectedQuestions, setSelectedQuestions ] = useState([]);
@@ -31,6 +31,7 @@ const VirtualContestTable = ({ data, virtualContestQuestions, setVirtualContestQ
 		console.log("Virtual contest has started");
 		let questionsList = selectedQuestions;
 		setSelectedQuestions([]);
+		setStartTime(Date.now());
 		setVirtualContestQuestions(questionsList);
 	}
 
@@ -63,6 +64,8 @@ const VirtualContestTable = ({ data, virtualContestQuestions, setVirtualContestQ
 				virtualContestQuestions={virtualContestQuestions} 
 				setVirtualContestQuestions={setVirtualContestQuestions} 
 				setResponse={setResponse} 
+				startTime={startTime} 
+				setStartTime={setStartTime} 
 			/>
 		)
 	}
@@ -99,7 +102,7 @@ const VirtualContestTable = ({ data, virtualContestQuestions, setVirtualContestQ
 				</THead>
 			</Table>
 			<div></div>
-			<Scrollable maxHeight="68vh">
+			<Scrollable maxHeight="68vh" style={{border: selectedQuestions.length?'2px solid blue' : ''}} >
 				<Table>
 					<colgroup>
 						<col span="1" style={{ width: "10%" }} />
@@ -235,6 +238,8 @@ VirtualContestTable.propTypes = {
 	),
 	setVirtualContestQuestions: propTypes.func,
 	setResponse: propTypes.func,
+	startTime: propTypes.number,
+	setStartTime: propTypes.func,
 };
 
 export default VirtualContestTable;

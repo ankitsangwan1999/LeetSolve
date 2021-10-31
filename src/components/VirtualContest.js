@@ -24,6 +24,8 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
     const [ contestQuestions, setContestQuestions ] = useState(virtualContestQuestions);
     const [ endingContest, setEndingContest ] = useState(false);
     const [ contestEnded, setContestEnded ] = useState(false);
+    const [ fetchingData, setFetchingData ] = useState(false);
+    const [ dataFetched, setDataFetched ] = useState(false);
 
     const handleEndButton = () => {
 		setEndingContest(true);
@@ -38,11 +40,13 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
     }
     
     const handleFetchData = () => {
+        setFetchingData(true);
         emitUserDataEvent(setResponse, setQuestionsData);
     }
 
 	useEffect(() => {
         const interval  = setInterval(() => {
+            setFetchingData(true);
             emitUserDataEvent(setResponse, setQuestionsData);
         }, 1000*TIME_OUT_LIMIT );
 
@@ -68,6 +72,13 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
         setContestQuestions((prev) => {
             return updatedQuestionsList;
         });
+        setFetchingData(false);
+        setDataFetched(true);
+        const timer = setTimeout(() => {
+            setDataFetched(false);
+
+            return () => clearTimeout(timer);
+        }, 2000);
     }, [questionsData]);
 
     if(contestEnded) {
@@ -82,6 +93,9 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
         )
     }
 
+    const fetchSuccess = !questionsData.shouldRunTimer;
+    const msg = (fetchSuccess)?"Status Updated Successfully!!" : "Fetching Status Failed ... ";
+    
     return (
         <div>
             <TableContainer style={{pointerEvents: endingContest?"none":"auto" }}>
@@ -155,10 +169,26 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
                 End Virtual Contest
             </AddRemoveButton>
             
-            <AddRemoveButton isAddButton={true} onClick={handleFetchData} style={{pointerEvents: endingContest?"none":"auto", paddingTop: "5px", marginLeft: "45%" }}>
+            <AddRemoveButton isAddButton={true} onClick={handleFetchData} style={{pointerEvents: endingContest?"none":"auto", paddingTop: "5px", marginLeft: "30%" }}>
                 Fetch Status
                 <span style={{margin: "10px 0px 0px 6px" }}><FaUndo/></span>
             </AddRemoveButton>
+
+            {
+                fetchingData
+                ?<AddRemoveButton isAddButton={true} style={{ marginLeft: "44%", marginTop: "10px" }} >
+                    Fetching Status ...
+                </AddRemoveButton>
+                :null
+            }
+
+            {
+                dataFetched && !fetchingData
+                ?<AddRemoveButton isRemoveButton={!fetchSuccess} isAddButton={fetchSuccess}  style={{paddingTop: "5px", marginLeft: "44%", marginTop: "10px" }} >
+                    {msg}
+                </AddRemoveButton>
+                :null
+            }
             
             {
                 endingContest

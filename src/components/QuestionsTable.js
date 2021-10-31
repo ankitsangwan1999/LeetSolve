@@ -15,7 +15,7 @@ import { ShuffleButton } from "../styles/shufflestyle";
 //import shuffle_image from "../static/images/icon.png";
 //import { Link } from 'react-router';
 import { useTable, usePagination } from "react-table";
-function CustomTable({ columns, data, onShuffle_var }) {
+function PaginationTable({ columns, data, onShuffle_var }) {
 	const {
 		getTableProps,
 		getTableBodyProps,
@@ -326,7 +326,7 @@ function QuestionsTable({ data, onShuffle }) {
 							);
 						})}
 					</TBody> */}
-				<CustomTable columns={columns} data={useful_data} onShuffle_var={onShuffle} />
+				<PaginationTable columns={columns} data={useful_data} onShuffle_var={onShuffle} />
 			{/* </Scrollable> */}
 		</TableContainer>
 		</>

@@ -6,7 +6,7 @@ import NotAcQuestionsTable from "./NotAcQuestionsTable";
 import propTypes from "prop-types";
 import VirtualContestTable from './VirtualContestTable';
 
-const TableContent = ({ data, category, onShuffle, virtualContestQuestions, setVirtualContestQuestions, setResponse, startTime, setStartTime }) => {
+const TableContent = ({ data, category, onShuffle, virtualContestQuestions, setVirtualContestQuestions, setResponse }) => {
 	//  This component checks the category and returns the corresponding component accordingly
 
 	switch (category) {
@@ -30,8 +30,6 @@ const TableContent = ({ data, category, onShuffle, virtualContestQuestions, setV
 						virtualContestQuestions={virtualContestQuestions} 
 						setVirtualContestQuestions={setVirtualContestQuestions} 
 						setResponse={setResponse} 
-						startTime={startTime} 
-						setStartTime={setStartTime}
 					/>;
 		
 		default:
@@ -68,8 +66,6 @@ TableContent.propTypes = {
 	),
 	setVirtualContestQuestions: propTypes.func,
 	setResponse: propTypes.func,
-	startTime: propTypes.number,
-	setStartTime: propTypes.func,
 };
 
 export default TableContent;

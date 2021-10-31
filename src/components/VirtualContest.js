@@ -15,12 +15,9 @@ import {
 	Td,
 } from "../styles/table";
 import { TIME_OUT_LIMIT } from "../Constants";
-import ContestTimer from "./ContestTimer";
 import ContestSummary from "./ContestSummary";
 
-let solveTime = {};
-
-const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuestions, setResponse, startTime, setStartTime }) => {
+const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuestions, setResponse }) => {
 	// console.log("DATA:", data);
 
     const [ questionsData, setQuestionsData ] = useState(data);
@@ -28,27 +25,12 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
     const [ endingContest, setEndingContest ] = useState(false);
     const [ contestEnded, setContestEnded ] = useState(false);
 
-    const calculateTimeElapsed = () => {
-        const curtime = Date.now();
-        let difference = curtime - startTime ;
-        let timeElapsed = {};
-        if (difference > 0) {
-            timeElapsed = {
-                hrs: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                mins: Math.floor((difference / (1000 * 60)) % 60),
-                secs: Math.floor((difference / 1000) % 60)
-            };
-        }
-        return timeElapsed;
-    }
-
     const handleEndButton = () => {
 		setEndingContest(true);
     }
 
 	const handleCloseVirtualContest = () => {
         setVirtualContestQuestions([]);
-        setStartTime(0);
 	}
 
     const handleGoBackToContest = () => {
@@ -84,15 +66,6 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
         });
         setVirtualContestQuestions(updatedQuestionsList);
         setContestQuestions((prev) => {
-            prev.forEach(question => {
-                updatedQuestionsList.forEach(que => {
-                    if(que["stat"]["frontend_question_id"] === question["stat"]["frontend_question_id"] && que["status"] === "ac" && question["status"] !== "ac") {
-                        const id = que["stat"]["frontend_question_id"];
-                        solveTime[id] = calculateTimeElapsed();
-                        console.log(id, que["stat"]["question__title"], solveTime);
-                    }
-                });
-            });
             return updatedQuestionsList;
         });
     }, [questionsData]);
@@ -101,7 +74,7 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
         return (
             <div>
                 Contest has ended !!
-                <ContestSummary contestQuestions={contestQuestions} solveTime={solveTime} />
+                <ContestSummary contestQuestions={contestQuestions} />
                 <AddRemoveButton onClick={handleCloseVirtualContest} isRemoveButton={true}>
                     Close Summary
                 </AddRemoveButton>
@@ -181,8 +154,6 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
             <AddRemoveButton isRemoveButton={true} onClick={handleEndButton} style={{pointerEvents: endingContest?"none":"auto" }}>
                 End Virtual Contest
             </AddRemoveButton>
-
-            <ContestTimer setContestEnded={setContestEnded} startTime={startTime} />
             
             <AddRemoveButton isAddButton={true} onClick={handleFetchData} style={{pointerEvents: endingContest?"none":"auto", paddingTop: "5px", marginLeft: "45%" }}>
                 Fetch Status
@@ -231,8 +202,6 @@ VirtualContest.propTypes = {
 	),
 	setVirtualContestQuestions: propTypes.func,
     setResponse: propTypes.func,
-    startTime: propTypes.number,
-    setStartTime: propTypes.func,
 };
 
 export default VirtualContest;

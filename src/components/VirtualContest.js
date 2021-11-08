@@ -14,6 +14,7 @@ import {
 	Th,
 	Td,
 } from "../styles/table";
+
 import { TIME_OUT_LIMIT } from "../Constants";
 import ContestSummary from "./ContestSummary";
 
@@ -31,6 +32,11 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
 		setEndingContest(true);
     }
 
+    const handleEndContest = () => {
+        handleFetchData();
+        setContestEnded(true);
+    }
+
 	const handleCloseVirtualContest = () => {
         setVirtualContestQuestions([]);
 	}
@@ -42,6 +48,7 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
     const handleFetchData = () => {
         setFetchingData(true);
         emitUserDataEvent(setResponse, setQuestionsData);
+        emitUserDataEvent(setResponse);
     }
 
 	useEffect(() => {
@@ -196,7 +203,7 @@ const VirtualContest = ({ data, virtualContestQuestions, setVirtualContestQuesti
                     <div style={{color: "red"}}>
                         Are you sure to end the contest?
                     </div>
-                    <AddRemoveButton onClick={() => setContestEnded(true)} isRemoveButton={true}>Yes</AddRemoveButton>
+                    <AddRemoveButton onClick={handleEndContest} isRemoveButton={true}>Yes</AddRemoveButton>
                     <AddRemoveButton onClick={handleGoBackToContest} isAddButton={true}>Go back to contest</AddRemoveButton>
                 </AddRemoveButton>
                 :null

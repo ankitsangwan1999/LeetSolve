@@ -8,7 +8,10 @@ import {
 	Th,
 	Td,
 } from "../styles/table";
-function Popup({ popup, setPopup, data }) {
+import propTypes from "prop-types";
+import { AddRemoveButton } from "../styles/add-remove-button";
+
+function Popup({ popup, setPopup, data, warningMessage="" }) {
 	console.log(popup);
 	return (
 		<div
@@ -19,7 +22,30 @@ function Popup({ popup, setPopup, data }) {
 				height: "100vh",
 			}}
 		>
-			<div
+		{
+			warningMessage !== ""
+			?<div
+				style={{
+					position: "relative",
+					width: "27%",
+					margin: "0 auto",
+					height: "auto",
+					maxHeight: "75vh",
+					marginTop: "calc(100vh - 85vh - 40px)",
+					padding: "5px 0px 5px 5px",
+					background: "black",
+					borderRadius: "4px",
+					border: "1px solid #999",
+					overflow: "auto",
+					color: "white"
+				}}
+			>
+				{warningMessage}
+				<AddRemoveButton isRemoveButton={true} onClick={() => setPopup(false)} style={{fontSize: "18px", padding: "1px 10px 1px 10px", marginRight: "0px", position: "absolute", right: "0", top: "1px"}}>
+					X
+				</AddRemoveButton>
+			</div>
+			:<div
 				style={{
 					position: "relative",
 					width: "70%",
@@ -49,12 +75,14 @@ function Popup({ popup, setPopup, data }) {
 						textAlign: "center",
 						border: "1px solid #999",
 						fontSize: "20px",
+						color: "black"
 					}}
 					onClick={() => setPopup(false)}
 				>
 					x
 				</span>
 
+				
 				<TableContainer>
 					<Table>
 						<colgroup>
@@ -119,8 +147,28 @@ function Popup({ popup, setPopup, data }) {
 					</Table>
 				</TableContainer>
 			</div>
+		}
 		</div>
 	);
+}
+
+Popup.propTypes = {
+	popup: propTypes.bool,
+	setPopup: propTypes.func,
+	data: propTypes.shape({
+		stat_status_pairs: propTypes.arrayOf(
+			propTypes.shape({
+				difficulty: propTypes.shape({ level: propTypes.number }),
+				stat: propTypes.shape({
+					question__title: propTypes.string,
+					question__title_slug: propTypes.string,
+				}),
+				level: propTypes.number,
+				status: propTypes.string,
+			})
+		),
+	}),
+	warningMessage: propTypes.string,
 }
 
 export default Popup;

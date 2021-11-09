@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import QuestionsTable from "./QuestionsTable";
 import AttemptedQuestionsTable from "./AttemptedQuestionsTable";
 import AcQuestionsTable from "./AcQuestionsTable";
 import NotAcQuestionsTable from "./NotAcQuestionsTable";
-import VirtualContest from "./VirtualContest";
 import propTypes from "prop-types";
+import VirtualContestTable from './VirtualContestTable';
 
-const TableContent = ({ data, category, onShuffle }) => {
+const TableContent = ({ data, category, onShuffle, virtualContestQuestions, setVirtualContestQuestions, setResponse }) => {
 	//  This component checks the category and returns the corresponding component accordingly
 
 	switch (category) {
@@ -23,8 +23,15 @@ const TableContent = ({ data, category, onShuffle }) => {
 
 		case "Not Accepted":
 			return <NotAcQuestionsTable data={data} onShuffle={onShuffle} />;
+		
 		case "Virtual Contest":
-			return <VirtualContest data={data} />;
+			return <VirtualContestTable 
+						data={data} 
+						virtualContestQuestions={virtualContestQuestions} 
+						setVirtualContestQuestions={setVirtualContestQuestions} 
+						setResponse={setResponse} 
+					/>;
+		
 		default:
 			return null;
 	}
@@ -46,6 +53,19 @@ TableContent.propTypes = {
 	}),
 	category: propTypes.string,
 	onShuffle: propTypes.func,
+	virtualContestQuestions: propTypes.arrayOf(
+		propTypes.shape({
+			difficulty: propTypes.shape({ level: propTypes.number }),
+			stat: propTypes.shape({
+				question__title: propTypes.string,
+				question__title_slug: propTypes.string,
+			}),
+			level: propTypes.number,
+			status: propTypes.string,
+		})
+	),
+	setVirtualContestQuestions: propTypes.func,
+	setResponse: propTypes.func,
 };
 
 export default TableContent;

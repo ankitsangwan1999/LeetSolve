@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import emitUserDataEvent from "../helpers/EmitUserDataEvent";
 import propTypes from "prop-types";
 import GifComponent from "./GifComponent";
@@ -7,15 +7,20 @@ import CookieForm from "./CookieForm";
 import CategoryNavBar from "./CategoryNavBar";
 import TableContent from "./TableContent";
 import Popup from "./Popup";
-import { CategoryButton } from "../styles/category";
 
-const AppContent = ({ response, setResponse }) => {
+const AppContent = ({ response, setResponse, handleLoggingOut }) => {
 	const [activeCategory, setActiveCategory] = useState("All Questions"); //name of the currently active category
 	const [popup, setPopup] = useState(false);
 	const [randomQues, setRandomQues] = useState({});
+	const [ virtualContestQuestions, setVirtualContestQuestions ] = useState([]);
+
 	const handleCategoryClick = (category) => {
-		setActiveCategory(category); //change the currently active category
-	};
+		setActiveCategory(category);												//change the currently active category
+		if(category === 'LogOut') {
+			handleLoggingOut();
+		}
+	}
+	
 	//console.log(response.data.stat_status_pairs);
 	const SelectRandom = () => {
 		const rdata =
@@ -115,6 +120,7 @@ const AppContent = ({ response, setResponse }) => {
 										"Attempted",
 										"Accepted",
 										"Not Accepted",
+										"Virtual Contest",
 									]} // list of categories to be displayed at the top like - All questions, Attempted and so on.
 									data={response.data}
 									handleCategoryClick={handleCategoryClick}
@@ -130,6 +136,9 @@ const AppContent = ({ response, setResponse }) => {
 								data={response.data}
 								category={activeCategory}
 								onShuffle={SelectRandom}
+								virtualContestQuestions={virtualContestQuestions}
+								setVirtualContestQuestions={setVirtualContestQuestions}
+								setResponse={setResponse}
 							/>
 							{popup && (
 								<Popup

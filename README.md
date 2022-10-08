@@ -3,7 +3,7 @@
 ![Visitor Count](https://profile-counter.glitch.me/ankitsangwan1999/count.svg)
 
 ## What am I looking at?
-**LeetSolve** - A cross-platform desktop application showing algorithm problems attempted by you on Leetcode.
+**LeetSolve** - A cross-platform desktop application, based on Electron.js, showing algorithm problems attempted by you on Leetcode.
 
 ## Why it exists?
 Sometimes back **Leetcode** did not show all the **attempted** problems(AC/Non-AC) by the user at one place. Particularly, **Non-AC** problems are important for students preparing for **interviews** as they want to solve them eventually. Categorizing all such problems based on their **Difficulty Level** and **Acceptance Rate** becomes helpful. 

@@ -1,4 +1,4 @@
-### If you are a participant in ContriHUB-21, then you are suggested to follow these tips/guidelines.
+### If you are a participant in ContriHUB-21, then you are suggested to follow these tips/guidelines - 
 
 1. Implement UI of all new features in line with the theme of the App. i.e. [THE MATRIX](https://en.wikipedia.org/wiki/The_Matrix_(franchise))
 
